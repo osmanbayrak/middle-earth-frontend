@@ -1,0 +1,23 @@
+<div class="modal-content" style="background: url(images/paper.png);background-size: cover">
+    <div class="custom-modal-body">
+        <div class="text-center" style="font-style: oblique;">
+            <h2 style="font-weight: 900">{{"Level "+building.level}} {{building.type}} Building</h2>
+            <img width="20%" ng-src="{{building.img}}">
+            <h3 style="font-weight: 900">{{"Construction time: "+convertSeconds(building.construction_time)}}</h3>
+            <div>
+                <table style="margin: auto" cellspacing="10" cellpadding="10">
+                    <th class="text-center">COST</th>
+                    <tbody>
+                        <tr ng-repeat="(k,v) in building.cost">
+                            <td ng-style="{'color': (notEnough[k] ? '#7E1417':'green')}">{{v}} {{" "+ k}} {{notEnough[k] ? " (not enough)": undefined}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-top: 10px">
+                <button ng-if="!(building.status == 'loading' || anyOfThemNotEnough)" class="btn" style="background-color: #578919; color: white" ng-click="upB()"> Level Up </button>
+                <button ng-if="building.status == 'loading'" class="btn" style="background-color: #661518; color: white" ng-click="cancel()"> Cancel Process </button>
+            </div>
+        </div>
+    </div>
+</div>

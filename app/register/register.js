@@ -15,7 +15,6 @@ angular.module('myApp.register', ['ngRoute', 'ui.bootstrap'])
         if ($scope.user.password != $scope.user.passwordConfirm){
             window.alert('Two passwords are different! Please try again.')
         } else {
-            console.log($scope.user);
             $scope.user.last_login = new Date();
             $http.post("http://127.0.0.1:9000/user/", $scope.user)
                 .success(function (data, status, headers, config) {
@@ -33,9 +32,9 @@ angular.module('myApp.register', ['ngRoute', 'ui.bootstrap'])
 
     $scope.loginModal = function () {
         $uibModal.open({
-            templateUrl: 'login/login.html',
+            templateUrl: 'modals/login/login.html',
             controller: 'loginCtrl',
-            controllerUrl: 'login/login.js'
+            controllerUrl: 'modals/login/login.js'
         })
     };
 

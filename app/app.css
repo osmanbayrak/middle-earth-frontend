@@ -45,3 +45,9 @@
   flex: 1 1 auto;
   padding: 1rem;
 }
+
+.myBar {
+  width: 15%;
+  text-align: center;
+  background-color: #468dbf;
+}

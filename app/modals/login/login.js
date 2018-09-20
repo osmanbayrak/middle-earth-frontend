@@ -8,12 +8,12 @@ angular.module('myApp.login', ['ngRoute', 'ui.bootstrap'])
         $scope.login = function () {
             $http.post("http://127.0.0.1:8000/auth/login/", $scope.user)
                 .success(function (data) {
-                    localStorage.setItem('key', data.key)
+                    localStorage.setItem('key', data.key);
                     $http.defaults.headers.common.Authorization = 'Token '+ data.key;
                     $http.get("http://127.0.0.1:8000/profiles/?user__username=" + $scope.user.username)
                         .success(function (profile) {
                             localStorage.setItem('profile', JSON.stringify(profile[0]))
-                            $location.path("/home")
+                            $location.path("/home");
                             $uibModalInstance.close()
                         })
                 })
