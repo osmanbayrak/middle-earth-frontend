@@ -34,6 +34,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                     angular.forEach($scope.currentTown.buildings, function (v) {
                         $scope[v.type] = v;
                         if (v.status == 'loading') {
+                            console.log("bura cosmamali")
                             $scope.buildingLoading(v)
                         }
                     });
@@ -46,11 +47,10 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
     $scope.buildingLoading = function (building) {
         var a = document.getElementById(building.type +'Loading');
         var sofar = parseInt((new Date().getTime() - new Date(building.change_date).getTime())/1000);
-        $scope.interval = {};
-        $scope.interval[building.type] = setInterval(frame, 1000);
+        $scope[building.type+building.type] = setInterval(frame, 1000);
         function frame() {
             if (sofar >= building.construction_time + 4) {
-                clearInterval($scope.interval[building.type]);
+                clearInterval($scope[building.type+building.type]);
                 $scope.page();
                 a.style.width = '0%';
                 a.innerHTML = '00:00:00'
@@ -78,7 +78,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                 } else {
                     $http.put("http://127.0.0.1:8000/towns/"+res.town+"/", {resources:"{'wood':"+(parseInt($scope.currentTown.resources.wood) + (building.cost["wood"] ? parseInt(building.cost["wood"]):0)) + ", 'food':"+(parseInt($scope.currentTown.resources.food) + (building.cost["food"] ? parseInt(building.cost["food"]):0)) +", 'stone':" + (parseInt($scope.currentTown.resources.stone) + (building.cost["stone"] ? parseInt(building.cost["stone"]):0)) +"}"})
                         .success(function (res) {
-                            clearInterval($scope.interval[building.type]); $scope.page()
+                            clearInterval($scope[building.type+building.type]); $scope.page()
                         })
                         .error(function (err, status, header, config) {console.log("put da error var")});
                 }
@@ -93,6 +93,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
             templateUrl: 'modals/building/building.html',
             controller: 'buildingModalCtrl',
             controllerUrl: 'modals/building/building.js',
+            size: 'lg',
             resolve: {
                 modalConfig: function() {
                     return {

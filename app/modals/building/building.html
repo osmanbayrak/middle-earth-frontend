@@ -1,9 +1,9 @@
-<div class="modal-content" style="background: url(images/paper.png);background-size: cover">
+<div class="modal-content" style="background: url(images/scrollpaper.png);background-size: cover;">
     <div class="custom-modal-body">
-        <div class="text-center" style="font-style: oblique;">
-            <h2 style="font-weight: 900">{{"Level "+building.level}} {{building.type}} Building</h2>
-            <img width="20%" ng-src="{{building.img}}">
-            <h3 style="font-weight: 900">{{"Construction time: "+convertSeconds(building.construction_time)}}</h3>
+        <div class="text-center" style="font-style: oblique;padding-top: 10%">
+            <h3 style="font-weight: 900">{{"Level "+building.level}} {{building.type}} Building</h3>
+            <img width="15%" ng-src="{{building.img}}">
+            <p style="font-weight: 900">{{"Construction time: "+convertSeconds(building.construction_time)}}</p>
             <div>
                 <table style="margin: auto" cellspacing="10" cellpadding="10">
                     <th class="text-center">COST</th>
