@@ -1,5 +1,6 @@
 <div style="position: relative">
     <img style="position: relative;" width="100%" src="images/basic.jpg">
+    <button ng-click="page()">page</button>
     <div id="mainDiv">
         <img ng-show="main.level > 0" ng-click="buildingModal(main)"  style="cursor: pointer; position: absolute;top: 30%; left: 45%;" width="10%" ng-src="{{main.img}}">
         <img ng-show="main.level == 0" ng-click="buildingModal(main)"  style="cursor: pointer; position: absolute;top: 30%; left: 45%;" width="10%" src="images/empty.png">

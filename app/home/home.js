@@ -11,6 +11,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
 
 .controller('homeCtrl', ['$scope','$rootScope','$http', '$uibModal', function($scope, $rootScope, $http, $uibModal) {
     $http.defaults.headers.common.Authorization = 'Token '+ localStorage.getItem('key');
+    $scope.interval = {};
 
     $scope.convertSeconds = function (seconds) {
         var date = new Date(null);
@@ -34,7 +35,6 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                     angular.forEach($scope.currentTown.buildings, function (v) {
                         $scope[v.type] = v;
                         if (v.status == 'loading') {
-                            console.log("bura cosmamali")
                             $scope.buildingLoading(v)
                         }
                     });
@@ -45,15 +45,19 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
         } else { $location.path('/register') }};
 
     $scope.buildingLoading = function (building) {
-        var a = document.getElementById(building.type +'Loading');
-        var sofar = parseInt((new Date().getTime() - new Date(building.change_date).getTime())/1000);
-        $scope[building.type+building.type] = setInterval(frame, 1000);
+        if (!(building.type in $scope.interval)) {
+            var a = document.getElementById(building.type +'Loading');
+            var sofar = parseInt((new Date().getTime() - new Date(building.change_date).getTime())/1000);
+            $scope.interval[building.type] = setInterval(frame, 1000);
+        }
         function frame() {
-            if (sofar >= building.construction_time + 4) {
-                clearInterval($scope[building.type+building.type]);
-                $scope.page();
+            if (sofar >= building.construction_time + 2) {
+                console.log($scope.interval);
+                clearInterval($scope.interval[building.type]);
+                delete $scope.interval[building.type];
                 a.style.width = '0%';
-                a.innerHTML = '00:00:00'
+                a.innerHTML = "Initilazing"
+                $scope.page()
             } else {
                 sofar++;
                 if (building.construction_time >= sofar) {
@@ -78,7 +82,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                 } else {
                     $http.put("http://127.0.0.1:8000/towns/"+res.town+"/", {resources:"{'wood':"+(parseInt($scope.currentTown.resources.wood) + (building.cost["wood"] ? parseInt(building.cost["wood"]):0)) + ", 'food':"+(parseInt($scope.currentTown.resources.food) + (building.cost["food"] ? parseInt(building.cost["food"]):0)) +", 'stone':" + (parseInt($scope.currentTown.resources.stone) + (building.cost["stone"] ? parseInt(building.cost["stone"]):0)) +"}"})
                         .success(function (res) {
-                            clearInterval($scope[building.type+building.type]); $scope.page()
+                            clearInterval($scope.interval[building.type]); $scope.page()
                         })
                         .error(function (err, status, header, config) {console.log("put da error var")});
                 }
