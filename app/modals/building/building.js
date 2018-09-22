@@ -6,7 +6,7 @@ angular.module('myApp.buildingModal', ['ngRoute', 'ui.bootstrap'])
     $scope.building = modalConfig.building;
     $scope.town = modalConfig.town;
     $scope.upB = function () {
-        $rootScope.buildingProcess($scope.building, false); // this function is in home.js and second parameter is isCancel
+        $rootScope.buildingProcess($scope.building, false); // this function is in home.js and second parameter is for isCancel
         $uibModalInstance.close()
     };
     $scope.cancel = function () {

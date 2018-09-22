@@ -9,7 +9,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
   });
 }])
 
-.controller('homeCtrl', ['$scope','$rootScope','$http', '$uibModal', function($scope, $rootScope, $http, $uibModal) {
+.controller('homeCtrl', ['$scope','$rootScope','$http', '$uibModal', '$location', function($scope, $rootScope, $http, $uibModal, $location) {
     $http.defaults.headers.common.Authorization = 'Token '+ localStorage.getItem('key');
     $scope.interval = {};
 
@@ -19,11 +19,11 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
         return date.toISOString().substr(11, 8);
     };
     $scope.convertFloor = function (data) {
-        return Math.floor(data)
+        return Math.floor(data);
     };
 
     $scope.page = function () {
-        if (localStorage.getItem('profile') != undefined) {
+        if (localStorage.getItem('profile') !== undefined) {
 
             $http.get("http://127.0.0.1:8000/profiles/?user__username=" + JSON.parse(localStorage.getItem('profile')).user.username)
                 .success(function (profile) {
@@ -31,18 +31,34 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                     $scope.currentTown = $scope.profile.town[0];
                     $scope.allTowns = [];
                     angular.forEach($scope.profile.town, function (v) {
-                        $scope.allTowns.push(v) });
+                        $scope.allTowns.push(v);});
+                    $scope.zones = {north: {lancers:[], cavalry:[], archers: []},
+                                    south: {lancers:[], cavalry:[], archers: []},
+                                    west: {lancers:[], cavalry:[], archers: []},
+                                    east: {lancers:[], cavalry:[], archers: []},
+                                    center: {lancers:[], cavalry:[], archers: []}};
+                    angular.forEach($scope.currentTown.troops, function (v) {
+                        if (v.type === "lancer") {
+                            $scope.zones[v.town_position].lancers.push(v);
+                        } else if (v.type === "cavalry") {
+                            $scope.zones[v.town_position].cavalry.push(v);
+                        } else if (v.type === "archer") {
+                            $scope.zones[v.town_position].archers.push(v);
+                        }
+                    });
+                    console.log($scope.zones);
                     angular.forEach($scope.currentTown.buildings, function (v) {
                         $scope[v.type] = v;
-                        if (v.status == 'loading') {
-                            $scope.buildingLoading(v)
+                        if (v.status === 'loading') {
+                            $scope.buildingLoading(v);
                         }
                     });
                     $scope.currentTown.resources = JSON.parse($scope.currentTown.resources.replace(/u/g,'').replace(/\'/g,'\"'));
                 })
-                .error(function (data, status, header, config) {$location.path('/register')});
+                .error(function (data, status, header, config) {$location.path('/register');});
 
-        } else { $location.path('/register') }};
+        } else { $location.path('/register'); }
+    };
 
     $scope.buildingLoading = function (building) {
         if (!(building.type in $scope.interval)) {
@@ -56,8 +72,8 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                 clearInterval($scope.interval[building.type]);
                 delete $scope.interval[building.type];
                 a.style.width = '0%';
-                a.innerHTML = "Initilazing"
-                $scope.page()
+                a.innerHTML = "Initilazing";
+                $scope.page();
             } else {
                 sofar++;
                 if (building.construction_time >= sofar) {
@@ -67,27 +83,27 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
             }}};
 
     $rootScope.buildingProcess = function (building, isCancel) {
-        if (isCancel == false) {
+        if (isCancel === false) {
             building.status = "loading";
             building.change_date = new Date();
-        } else {building.status = "completed"}
+        } else {building.status = "completed";}
         $http.put("http://127.0.0.1:8000/buildings/" + building.id + '/', building)
             .success(function (res) {
-                if (res.status == "loading") {
+                if (res.status === "loading") {
                      $http.put("http://127.0.0.1:8000/towns/"+res.town+"/", {resources:"{'wood':"+(parseInt($scope.currentTown.resources.wood) - (building.cost["wood"] ? parseInt(building.cost["wood"]):0)) + ", 'food':"+(parseInt($scope.currentTown.resources.food) - (building.cost["food"] ? parseInt(building.cost["food"]):0)) +", 'stone':" + (parseInt($scope.currentTown.resources.stone) - (building.cost["stone"] ? parseInt(building.cost["stone"]):0)) +"}"})
                          .success(function (res) {
-                             $scope.page()
+                             $scope.page();
                          })
-                         .error(function (err, status, header, config) {console.log("put da error var")});
+                         .error(function (err, status, header, config) {console.log("put da error var");});
                 } else {
                     $http.put("http://127.0.0.1:8000/towns/"+res.town+"/", {resources:"{'wood':"+(parseInt($scope.currentTown.resources.wood) + (building.cost["wood"] ? parseInt(building.cost["wood"]):0)) + ", 'food':"+(parseInt($scope.currentTown.resources.food) + (building.cost["food"] ? parseInt(building.cost["food"]):0)) +", 'stone':" + (parseInt($scope.currentTown.resources.stone) + (building.cost["stone"] ? parseInt(building.cost["stone"]):0)) +"}"})
                         .success(function (res) {
-                            clearInterval($scope.interval[building.type]); $scope.page()
+                            clearInterval($scope.interval[building.type]); $scope.page();
                         })
-                        .error(function (err, status, header, config) {console.log("put da error var")});
+                        .error(function (err, status, header, config) {console.log("put da error var");});
                 }
             })
-            .error(function (err, status, header, config) {window.alert("You have not enough resources!"); $scope.page()});
+            .error(function (err, status, header, config) {window.alert("You have not enough resources!"); $scope.page();});
     };
 
     $scope.page();
@@ -106,7 +122,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                     };
                 }
             }
-        })
+        });
     };
 
 }]);

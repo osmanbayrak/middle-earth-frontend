@@ -1,78 +1,116 @@
 <div style="position: relative">
     <img style="position: relative;" width="100%" src="images/basic.jpg">
-    <button ng-click="page()">page</button>
-    <div id="mainDiv">
-        <img ng-show="main.level > 0" ng-click="buildingModal(main)"  style="cursor: pointer; position: absolute;top: 30%; left: 45%;" width="10%" ng-src="{{main.img}}">
-        <img ng-show="main.level == 0" ng-click="buildingModal(main)"  style="cursor: pointer; position: absolute;top: 30%; left: 45%;" width="10%" src="images/empty.png">
-        <div ng-if="main.status == 'loading'">
-            <img ng-click="buildingModal(main)" width="3%" style="position: absolute;top: 35%; left: 48%" src="images/loading.gif">
+    <div id="militaryDiv">
+        <div id="north">
+            <img ng-show="zones.north.lancers.length > 0" style="cursor: pointer; position: absolute;top: 8%; left: 45%;" width="5%" src="images/military/lancer/1.png">
+            <img ng-show="zones.north.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 6%; left: 35%;" width="7%" src="images/military/cavalry/turnleft.png">
+            <img ng-show="zones.north.archers.length > 0" style="cursor: pointer; position: absolute;top: 8%; left: 52%;" width="4%" src="images/military/archer/1.png">
         </div>
-        <div ng-click="buildingModal(main)" ng-show="main.status == 'loading'" style="position: absolute; top: 39%; left: 47%; background-color: whitesmoke;border: solid saddlebrown;border-radius: 7px" id="myProgressmain">
-            <div class="myBar" id="mainLoading"></div>
+        <div id="south">
+            <img ng-show="zones.south.lancers.length > 0" style="cursor: pointer; position: absolute;top: 85%; left: 45%;" width="5%" src="images/military/lancer/1.png">
+            <img ng-show="zones.south.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 89%; left: 50%;" width="7%" src="images/military/cavalry/turnleft.png">
+            <img ng-show="zones.south.archers.length > 0" style="cursor: pointer; position: absolute;top: 85%; left: 59%;" width="4%" src="images/military/archer/1.png">
         </div>
-    </div>
-    <div id="barracksDiv">
-        <img ng-show="barrack.level > 0" ng-click="buildingModal(barrack)"  style="cursor: pointer; position: absolute;top: 37%; left: 37%;" width="8%" ng-src="{{barrack.img}}">
-        <img ng-show="barrack.level == 0" ng-click="buildingModal(barrack)"  style="cursor: pointer; position: absolute;top: 37%; left: 37%;" width="8%" src="images/empty.png">
-        <div ng-if="barrack.status == 'loading'">
-            <img ng-click="buildingModal(barrack)" width="3%" style="position: absolute;top: 39%; left: 40%" src="images/loading.gif">
+        <div id="east">
+            <img ng-show="zones.east.lancers.length > 0" style="cursor: pointer; position: absolute;top: 40%; left: 85%;" width="5%" src="images/military/lancer/1.png">
+            <img ng-show="zones.east.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 45%; left: 85%;" width="7%" src="images/military/cavalry/1.png">
+            <img ng-show="zones.east.archers.length > 0" style="cursor: pointer; position: absolute;top: 35%; left: 85%;" width="4%" src="images/military/archer/1.png">
         </div>
-        <div ng-click="buildingModal(barrack)" ng-show="barrack.status == 'loading'" style="position: absolute;
-            top: 43%; left: 37%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgressbarrack">
-            <div class="myBar" id="barrackLoading"></div>
+        <div id="west">
+            <img ng-show="zones.west.lancers.length > 0" style="cursor: pointer; position: absolute;top: 49%; left: 7%;" width="5%" src="images/military/lancer/1.png">
+            <img ng-show="zones.west.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 41%; left: 5%;" width="7%" src="images/military/cavalry/turnleft.png">
+            <img ng-show="zones.west.archers.length > 0" style="cursor: pointer; position: absolute;top: 35%; left: 7%;" width="4%" src="images/military/archer/1.png">
         </div>
-    </div>
-    <div id="stableDiv">
-        <img ng-show="stable.level > 0" ng-click="buildingModal(stable)"  style="cursor: pointer; position: absolute;top: 25%; left: 35%;" width="8%" ng-src="{{stable.img}}">
-        <img ng-show="stable.level == 0" ng-click="buildingModal(stable)"  style="cursor: pointer; position: absolute;top: 25%; left: 35%;" width="8%" src="images/empty.png">
-        <div ng-if="stable.status == 'loading'">
-            <img ng-click="buildingModal(stable)" width="3%" style="position: absolute;top: 27%; left: 38%" src="images/loading.gif">
-        </div>
-        <div ng-click="buildingModal(stable)" ng-show="stable.status == 'loading'" style="position: absolute; top: 31%; left: 37%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgresstables">
-            <div class="myBar" id="stableLoading"></div>
+        <div id="center">
+            <img ng-show="zones.center.lancers.length > 0" style="cursor: pointer; position: absolute;top: 42%; left: 40%;" width="5%" src="images/military/lancer/1.png">
+            <img ng-show="zones.center.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 42%; left: 52%;" width="7%" src="images/military/cavalry/1.png">
+            <img ng-show="zones.center.archers.length > 0" style="cursor: pointer; position: absolute;top: 42%; left: 46%;" width="4%" src="images/military/archer/1.png">
         </div>
     </div>
-    <div id="timberDiv">
-        <img ng-show="timber.level > 0" ng-click="buildingModal(timber)"  style="cursor: pointer; position: absolute;top: 58%; left: 68%;" width="8%" ng-src="{{timber.img}}">
-        <img ng-show="timber.level == 0" ng-click="buildingModal(timber)"  style="cursor: pointer; position: absolute;top: 58%; left: 68%;" width="8%" src="images/empty.png">
-        <div ng-if="timber.status == 'loading'">
-            <img ng-click="buildingModal(timber)" width="3%" style="position: absolute;top: 60%; left: 71%" src="images/loading.gif">
+    <div id="buildingDiv">
+        <div id="mainDiv">
+            <img ng-show="main.level > 0" ng-click="buildingModal(main)"  style="cursor: pointer; position: absolute;top: 20%; left: 45%;" width="10%" ng-src="{{main.img}}">
+            <img ng-show="main.level == 0" ng-click="buildingModal(main)"  style="cursor: pointer; position: absolute;top: 20%; left: 45%;" width="10%" src="images/empty.png">
+            <div ng-if="main.status == 'loading'">
+                <img ng-click="buildingModal(main)" width="4%" style="cursor: pointer;position: absolute;top: 25%; left: 48%" src="images/loading.gif">
+            </div>
+            <div ng-click="buildingModal(main)" ng-show="main.status == 'loading'" style="cursor: pointer;position: absolute; top: 29%; left: 47%; background-color: whitesmoke;border: solid saddlebrown;border-radius: 7px" id="myProgressmain">
+                <div class="myBar" id="mainLoading"></div>
+            </div>
         </div>
-        <div ng-click="buildingModal(timber)" ng-show="timber.status == 'loading'" style="position: absolute; top: 62%; left: 70%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgresstimber">
-            <div class="myBar" id="timberLoading"></div>
+        <div id="barracksDiv">
+            <img ng-show="barrack.level > 0" ng-click="buildingModal(barrack)"  style="cursor: pointer; position: absolute;top: 37%; left: 30%;" width="8%" ng-src="{{barrack.img}}">
+            <img ng-show="barrack.level == 0" ng-click="buildingModal(barrack)"  style="cursor: pointer; position: absolute;top: 37%; left: 30%;" width="8%" src="images/empty.png">
+            <div ng-if="barrack.status == 'loading'">
+                <img ng-click="buildingModal(barrack)" width="4%" style="cursor: pointer;position: absolute;top: 39%; left: 32%" src="images/loading2.gif">
+            </div>
+            <div ng-click="buildingModal(barrack)" ng-show="barrack.status == 'loading'" style="cursor: pointer;position: absolute;
+                top: 43%; left: 30%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgressbarrack">
+                <div class="myBar" id="barrackLoading"></div>
+            </div>
+        </div>
+        <div id="stableDiv">
+            <img ng-show="stable.level > 0" ng-click="buildingModal(stable)"  style="cursor: pointer; position: absolute;top: 26%; left: 35%;" width="8%" ng-src="{{stable.img}}">
+            <img ng-show="stable.level == 0" ng-click="buildingModal(stable)"  style="cursor: pointer; position: absolute;top: 26%; left: 35%;" width="8%" src="images/empty.png">
+            <div ng-if="stable.status == 'loading'">
+                <img ng-click="buildingModal(stable)" width="4%" style="cursor: pointer;position: absolute;top: 27%; left: 38%" src="images/loading2.gif">
+            </div>
+            <div ng-click="buildingModal(stable)" ng-show="stable.status == 'loading'" style="cursor: pointer;position: absolute; top: 31%; left: 37%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgresstables">
+                <div class="myBar" id="stableLoading"></div>
+            </div>
+        </div>
+        <div id="timberDiv">
+            <img ng-show="timber.level > 0" ng-click="buildingModal(timber)"  style="cursor: pointer; position: absolute;top: 58%; left: 68%;" width="8%" ng-src="{{timber.img}}">
+            <img ng-show="timber.level == 0" ng-click="buildingModal(timber)"  style="cursor: pointer; position: absolute;top: 58%; left: 68%;" width="8%" src="images/empty.png">
+            <div ng-if="timber.status == 'loading'">
+                <img ng-click="buildingModal(timber)" width="4%" style="cursor: pointer;position: absolute;top: 60%; left: 71%" src="images/loading2.gif">
+            </div>
+            <div ng-click="buildingModal(timber)" ng-show="timber.status == 'loading'" style="cursor: pointer;position: absolute; top: 62%; left: 70%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgresstimber">
+                <div class="myBar" id="timberLoading"></div>
+            </div>
+        </div>
+        <div id="stoneDiv">
+            <img ng-show="stone.level > 0" ng-click="buildingModal(stone)"  style="cursor: pointer; position: absolute;top: 53%; left: 37%;" width="8%" ng-src="{{stone.img}}">
+            <img ng-show="stone.level == 0" ng-click="buildingModal(stone)"  style="cursor: pointer; position: absolute;top: 53%; left: 37%;" width="8%" src="images/empty.png">
+            <div ng-if="stone.status == 'loading'">
+                <img ng-click="buildingModal(stone)" width="4%" style="cursor: pointer;position: absolute;top: 55%; left: 51%" src="images/loading2.gif">
+            </div>
+            <div ng-click="buildingModal(stone)" ng-show="stone.status == 'loading'" style="cursor: pointer;position: absolute; top: 57%; left: 39%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgressstone">
+                <div class="myBar" id="stoneLoading"></div>
+            </div>
+        </div>
+        <div id="houseDiv">
+            <img ng-show="house.level > 0" ng-click="buildingModal(house)"  style="cursor: pointer; position: absolute;top: 53%; left: 50%;" width="8%" ng-src="{{house.img}}">
+            <img ng-show="house.level == 0" ng-click="buildingModal(house)"  style="cursor: pointer; position: absolute;top: 53%; left: 50%;" width="8%" src="images/empty.png">
+            <div ng-if="house.status == 'loading'">
+                <img ng-click="buildingModal(house)" width="4%" style="cursor: pointer;position: absolute;top: 55%; left: 51%" src="images/loading2.gif">
+            </div>
+            <div ng-click="buildingModal(house)" ng-show="house.status == 'loading'" style="cursor: pointer;position: absolute; top: 57%; left: 52%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgresshouse">
+                <div class="myBar" id="houseLoading"></div>
+            </div>
+        </div>
+        <div id="depotDiv">
+            <img ng-show="depot.level > 0" ng-click="buildingModal(depot)"  style="cursor: pointer; position: absolute;top: 53%; left: 35%;" width="8%" ng-src="{{depot.img}}">
+            <img ng-show="depot.level == 0" ng-click="buildingModal(depot)"  style="cursor: pointer; position: absolute;top: 53%; left: 35%;" width="8%" src="images/empty.png">
+            <div ng-if="depot.status == 'loading'">
+                <img ng-click="buildingModal(depot)" width="4%" style="cursor: pointer;position: absolute;top: 55%; left: 37%" src="images/loading2.gif">
+            </div>
+            <div ng-click="buildingModal(depot)" ng-show="depot.status == 'loading'" style="cursor: pointer;position: absolute; top: 57%; left: 37%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgressdepot">
+                <div class="myBar" id="depotLoading"></div>
+            </div>
+        </div>
+        <div id="farmDiv">
+            <img ng-show="farm.level > 0" ng-click="buildingModal(farm)"  style="cursor: pointer; position: absolute;top: 33%; left: 65%;" width="8%" ng-src="{{farm.img}}">
+            <img ng-show="farm.level == 0" ng-click="buildingModal(farm)"  style="cursor: pointer; position: absolute;top: 33%; left: 65%;" width="8%" src="images/empty.png">
+            <div ng-if="farm.status == 'loading'">
+                <img ng-click="buildingModal(farm)" width="4%" style="cursor: pointer;position: absolute;top: 35%; left: 67%" src="images/loading2.gif">
+            </div>
+            <div ng-click="buildingModal(farm)" ng-show="farm.status == 'loading'" style="cursor: pointer;position: absolute; top: 37%; left: 67%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgressfarm">
+                <div class="myBar" id="farmLoading"></div>
+            </div>
         </div>
     </div>
-    <div id="stoneDiv">
-        <img ng-show="stone.level > 0" ng-click="buildingModal(stone)"  style="cursor: pointer; position: absolute;top: 53%; left: 37%;" width="8%" ng-src="{{stone.img}}">
-        <img ng-show="stone.level == 0" ng-click="buildingModal(stone)"  style="cursor: pointer; position: absolute;top: 53%; left: 37%;" width="8%" src="images/empty.png">
-        <div ng-if="stone.status == 'loading'">
-            <img ng-click="buildingModal(stone)" width="3%" style="position: absolute;top: 55%; left: 51%" src="images/loading.gif">
-        </div>
-        <div ng-click="buildingModal(stone)" ng-show="stone.status == 'loading'" style="position: absolute; top: 57%; left: 39%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgressstone">
-            <div class="myBar" id="stoneLoading"></div>
-        </div>
-    </div>
-    <div id="houseDiv">
-        <img ng-show="house.level > 0" ng-click="buildingModal(house)"  style="cursor: pointer; position: absolute;top: 53%; left: 50%;" width="8%" ng-src="{{house.img}}">
-        <img ng-show="house.level == 0" ng-click="buildingModal(house)"  style="cursor: pointer; position: absolute;top: 53%; left: 50%;" width="8%" src="images/empty.png">
-        <div ng-if="house.status == 'loading'">
-            <img ng-click="buildingModal(house)" width="3%" style="position: absolute;top: 55%; left: 51%" src="images/loading.gif">
-        </div>
-        <div ng-click="buildingModal(house)" ng-show="house.status == 'loading'" style="position: absolute; top: 57%; left: 52%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgresshouse">
-            <div class="myBar" id="houseLoading"></div>
-        </div>
-    </div>
-    <div id="depotDiv">
-        <img ng-show="depot.level > 0" ng-click="buildingModal(depot)"  style="cursor: pointer; position: absolute;top: 53%; left: 35%;" width="8%" ng-src="{{depot.img}}">
-        <img ng-show="depot.level == 0" ng-click="buildingModal(depot)"  style="cursor: pointer; position: absolute;top: 53%; left: 35%;" width="8%" src="images/empty.png">
-        <div ng-if="depot.status == 'loading'">
-            <img ng-click="buildingModal(depot)" width="3%" style="position: absolute;top: 55%; left: 37%" src="images/loading.gif">
-        </div>
-        <div ng-click="buildingModal(depot)" ng-show="depot.status == 'loading'" style="position: absolute; top: 57%; left: 37%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgressdepot">
-            <div class="myBar" id="depotLoading"></div>
-        </div>
-    </div>
-    <div style="width: 10%;height: 110px;position: fixed;top: 1%; left:1%;background-image: url(images/scrollpaper.png); background-size: cover;">
+    <div style="width: 147px;height: 110px;position: fixed;top: 1%; left:1%;background-image: url(images/scrollpaper.png); background-size: cover;">
         <table style="margin: auto; margin-top: 18%;">
             <tbody>
             <tr ng-repeat="(k,v) in currentTown.resources">
