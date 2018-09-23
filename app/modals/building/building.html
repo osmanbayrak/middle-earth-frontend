@@ -2,22 +2,53 @@
     <div class="custom-modal-body">
         <div class="text-center" style="font-style: oblique;padding-top: 10%">
             <h3 style="font-weight: 900">{{"Level "+building.level}} {{building.type}} Building</h3>
-            <img width="15%" ng-src="{{building.img}}">
-            <p style="font-weight: 900">{{"Construction time: "+convertSeconds(building.construction_time)}}</p>
-            <div>
-                <table style="margin: auto" cellspacing="10" cellpadding="10">
-                    <th class="text-center">COST</th>
-                    <tbody>
-                        <tr ng-repeat="(k,v) in building.cost">
-                            <td ng-style="{'color': (notEnough[k] ? '#7E1417':'green')}">{{v}} {{" "+ k}} {{notEnough[k] ? " (not enough)": undefined}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div style="margin-top: 10px">
-                <button ng-if="!(building.status == 'loading' || anyOfThemNotEnough)" class="btn" style="background-color: #578919; color: white" ng-click="upB()"> Level Up </button>
-                <button ng-if="building.status == 'loading'" class="btn" style="background-color: #661518; color: white" ng-click="cancel()"> Cancel Process </button>
-            </div>
+            <table style="margin-left: 15%">
+                <thead>
+                    <th ng-if="building.sector == 'military'" class="text-center">Production</th>
+                    <th class="text-center">Construction</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td ng-if="building.sector == 'military'">
+                            <img width="32%" ng-src="troop.img">
+                            <p style="font-weight: 900">{{"Time: "+convertSeconds(troop.preparation_time)}}</p>
+                            <div>
+                                <table style="margin: auto" cellspacing="10" cellpadding="10">
+                                    <th class="text-center">COST</th>
+                                    <tbody>
+                                    <tr ng-repeat="(k,v) in troop.cost">
+                                        <td ng-style="{'color': (checkEnough(k,v) ? 'green':'#7E1417')}">{{v}} {{" "+ k}} {{checkEnough(k,v) ? undefined: " (not enough)"}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="margin-top: 10px">
+                                <button ng-if="!(building.status == 'loading' || anyOfThemNotEnough)" class="btn" style="background-color: #578919; color: white" ng-click="upB()"> Level Up </button>
+                                <button ng-if="building.status == 'loading'" class="btn" style="background-color: #661518; color: white" ng-click="cancel()"> Cancel Process </button>
+                            </div>
+                        </td>
+                        <td>
+                            <img width="15%" ng-src="{{building.img}}">
+                            <p style="font-weight: 900">{{"Time: "+convertSeconds(building.construction_time)}}</p>
+                            <div>
+                                <table style="margin: auto" cellspacing="10" cellpadding="10">
+                                    <th class="text-center">COST</th>
+                                    <tbody>
+                                    <tr ng-repeat="(k,v) in building.cost">
+                                        <td ng-style="{'color': (notEnough[k] ? '#7E1417':'green')}">{{v}} {{" "+ k}} {{notEnough[k] ? " (not enough)": undefined}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="margin-top: 10px">
+                                <button ng-if="!(building.status == 'loading' || anyOfThemNotEnough)" class="btn" style="background-color: #578919; color: white" ng-click="upB()"> Level Up </button>
+                                <button ng-if="building.status == 'loading'" class="btn" style="background-color: #661518; color: white" ng-click="cancel()"> Cancel Process </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
     </div>
 </div>

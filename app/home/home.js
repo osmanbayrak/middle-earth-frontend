@@ -118,7 +118,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                 modalConfig: function() {
                     return {
                         building: building,
-                        town: $scope.currentTown
+                        resources: $scope.currentTown.resources
                     };
                 }
             }
