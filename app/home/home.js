@@ -59,6 +59,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
 
         } else { $location.path('/register'); }
     };
+    $scope.refresh = setInterval($scope.page, 120000);
 
     $scope.buildingLoading = function (building) {
         if (!(building.type in $scope.interval)) {
@@ -98,12 +99,30 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                 } else {
                     $http.put("http://127.0.0.1:8000/towns/"+res.town+"/", {resources:"{'wood':"+(parseInt($scope.currentTown.resources.wood) + (building.cost["wood"] ? parseInt(building.cost["wood"]):0)) + ", 'food':"+(parseInt($scope.currentTown.resources.food) + (building.cost["food"] ? parseInt(building.cost["food"]):0)) +", 'stone':" + (parseInt($scope.currentTown.resources.stone) + (building.cost["stone"] ? parseInt(building.cost["stone"]):0)) +"}"})
                         .success(function (res) {
-                            clearInterval($scope.interval[building.type]); $scope.page();
+                            clearInterval($scope.interval[building.type]); delete $scope.interval[building.type]; $scope.page();
                         })
                         .error(function (err, status, header, config) {console.log("put da error var");});
                 }
             })
             .error(function (err, status, header, config) {window.alert("You have not enough resources!"); $scope.page();});
+    };
+
+    $rootScope.trainNew = function (buildingType, isCancel) {
+        if (isCancel === false) {
+            if (buildingType === 'archery') {
+                $scope.troop = {type:'archer', tier:0, town:$scope.currentTown.id, change_date: new Date(), status: 'preparing', town_position:'center'};
+            } else if(buildingType === 'stable') {
+                $scope.troop = {type:'cavalry', tier:0, town:$scope.currentTown.id, change_date: new Date(), status: 'preparing', town_position:'center'};
+            } else if(buildingType === 'barrack') {
+                $scope.troop = {type:'lancer', tier:0, town:$scope.currentTown.id, change_date: new Date(), status: 'preparing', town_position:'center'};
+            }
+            $http.post("http://127.0.0.1:8000/buildings/", $scope.troop)
+                .success(function (res) {
+                    $scope.page();
+                })
+                .error(function (err, status, header, config) {window.alert("Check your queue and resources and try again!"); $scope.page();});
+
+        } else { var del ="delete created object from db";}
     };
 
     $scope.page();
@@ -118,7 +137,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                 modalConfig: function() {
                     return {
                         building: building,
-                        resources: $scope.currentTown.resources
+                        town: $scope.currentTown
                     };
                 }
             }

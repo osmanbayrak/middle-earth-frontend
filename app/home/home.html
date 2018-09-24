@@ -109,6 +109,16 @@
                 <div class="myBar" id="farmLoading"></div>
             </div>
         </div>
+        <div id="archeryDiv">
+            <img ng-show="archery.level > 0" ng-click="buildingModal(archery)"  style="cursor: pointer; position: absolute;top: 42%; left: 70%;" width="8%" ng-src="{{archery.img}}">
+            <img ng-show="archery.level == 0" ng-click="buildingModal(archery)"  style="cursor: pointer; position: absolute;top: 42%; left: 70%;" width="8%" src="images/empty.png">
+            <div ng-if="archery.status == 'loading'">
+                <img ng-click="buildingModal(archery)" width="4%" style="cursor: pointer;position: absolute;top: 43%; left: 72%" src="images/loading2.gif">
+            </div>
+            <div ng-click="buildingModal(archery)" ng-show="archery.status == 'loading'" style="cursor: pointer;position: absolute; top: 45%; left: 73%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgressarchery">
+                <div class="myBar" id="archeryLoading"></div>
+            </div>
+        </div>
     </div>
     <div style="width: 147px;height: 110px;position: fixed;top: 1%; left:1%;background-image: url(images/scrollpaper.png); background-size: cover;">
         <table style="margin: auto; margin-top: 18%;">

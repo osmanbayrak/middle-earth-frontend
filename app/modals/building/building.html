@@ -4,28 +4,39 @@
             <h3 style="font-weight: 900">{{"Level "+building.level}} {{building.type}} Building</h3>
             <table style="margin-left: 15%">
                 <thead>
-                    <th ng-if="building.sector == 'military'" class="text-center">Production</th>
+                    <th ng-if="building.sector == 'production'" class="text-center">Production</th>
+                    <th ng-if="building.sector == 'military'" class="text-center">Train</th>
                     <th class="text-center">Construction</th>
                 </thead>
                 <tbody>
                     <tr>
+                        <td ng-if="building.sector == 'production'">
+                        </td>
                         <td ng-if="building.sector == 'military'">
-                            <img width="32%" ng-src="troop.img">
-                            <p style="font-weight: 900">{{"Time: "+convertSeconds(troop.preparation_time)}}</p>
-                            <div>
-                                <table style="margin: auto" cellspacing="10" cellpadding="10">
-                                    <th class="text-center">COST</th>
-                                    <tbody>
-                                    <tr ng-repeat="(k,v) in troop.cost">
-                                        <td ng-style="{'color': (checkEnough(k,v) ? 'green':'#7E1417')}">{{v}} {{" "+ k}} {{checkEnough(k,v) ? undefined: " (not enough)"}}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <img width="32%" ng-src="{{initial_troop.img}}">
+                            <p style="font-weight: 900">{{"Time: "+convertSeconds(initial_troop.preparation_time)}}</p>
+                            <table style="margin: auto" cellspacing="10" cellpadding="10">
+                                <th class="text-center">COST</th>
+                                <tbody>
+                                <tr ng-repeat="(k,v) in initial_troop.cost">
+                                    <td ng-style="{'color': (checkEnough(k,v) ? 'green':'#7E1417')}">{{v}} {{" "+ k}} {{checkEnough(k,v) ? undefined: " (not enough)"}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
                             <div style="margin-top: 10px">
-                                <button ng-if="!(building.status == 'loading' || anyOfThemNotEnough)" class="btn" style="background-color: #578919; color: white" ng-click="upB()"> Level Up </button>
-                                <button ng-if="building.status == 'loading'" class="btn" style="background-color: #661518; color: white" ng-click="cancel()"> Cancel Process </button>
+                                <button ng-if="buttonIsAvailable(true)" class="btn btn-sm" style="background-color: #578919; color: white" ng-click="train()"> Train Up </button>
                             </div>
+                            <table ng-if="preparing_troops.length > 0" style="margin: auto" cellspacing="10" cellpadding="10">
+                                    <th class="text-center" colspan="2">Current Trainings</th>
+                                <tbody>
+                                <tr ng-repeat="item in preparing_troops">
+                                    <td>{{item.type | capitalize}} <img width="15%" ng-src="images/military/{{item.type}}/profile.png"></td>
+                                    <td>
+                                        <button class="btn btn-sm" style="background-color: #661518; color: white" ng-click="cancel_train(item.id)">Cancel</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </td>
                         <td>
                             <img width="15%" ng-src="{{building.img}}">
@@ -35,14 +46,14 @@
                                     <th class="text-center">COST</th>
                                     <tbody>
                                     <tr ng-repeat="(k,v) in building.cost">
-                                        <td ng-style="{'color': (notEnough[k] ? '#7E1417':'green')}">{{v}} {{" "+ k}} {{notEnough[k] ? " (not enough)": undefined}}</td>
+                                        <td ng-style="{'color': (checkEnough(k,v) ? 'green':'#7E1417')}">{{v}} {{" "+ k}} {{checkEnough(k,v) ? undefined: " (not enough)"}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div style="margin-top: 10px">
-                                <button ng-if="!(building.status == 'loading' || anyOfThemNotEnough)" class="btn" style="background-color: #578919; color: white" ng-click="upB()"> Level Up </button>
-                                <button ng-if="building.status == 'loading'" class="btn" style="background-color: #661518; color: white" ng-click="cancel()"> Cancel Process </button>
+                                <button ng-if="buttonIsAvailable(false)" class="btn btn-sm" style="background-color: #578919; color: white" ng-click="upB()"> Level Up </button>
+                                <button ng-if="building.status == 'loading'" class="btn btn-sm" style="background-color: #661518; color: white" ng-click="cancel()"> Cancel Process </button>
                             </div>
                         </td>
                     </tr>
