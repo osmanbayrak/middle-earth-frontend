@@ -1,19 +1,22 @@
-<div class="modal-content" style="background: url(images/scrollpaper.png);background-size: cover;">
+<div class="modal-content" style="background: url(images/scrollpaper.png);background-size: cover;height: 470px;width: 600px">
     <div class="custom-modal-body">
-        <div class="text-center" style="font-style: oblique;padding-top: 10%">
+        <div class="text-center" style="font-style: oblique;padding-top: 13%">
             <h3 style="font-weight: 900">{{"Level "+building.level}} {{building.type}} Building</h3>
-            <table style="margin-left: 15%">
+            <table style="margin-left: auto;margin-right: auto" >
                 <thead>
-                    <th ng-if="building.sector == 'production'" class="text-center">Production</th>
-                    <th ng-if="building.sector == 'military'" class="text-center">Train</th>
-                    <th class="text-center">Construction</th>
+                    <th style="width: 220px" ng-if="building.sector == 'others' || building.sector == 'town center'  && building.level > 0" class="text-center">Info</th>
+                    <th style="width: 220px" ng-if="building.sector == 'production'  && building.level > 0" class="text-center">Production</th>
+                    <th style="width: 220px" ng-if="building.sector == 'military' && building.level > 0" class="text-center">Train</th>
+                    <th style="width: 220px" ng-if="preparing_troops.length > 0" class="text-center">Current Trainings</th>
+                    <th style="width: 220px" class="text-center">Construction</th>
                 </thead>
                 <tbody>
                     <tr>
-                        <td ng-if="building.sector == 'production'">
+                        <td ng-if="building.sector == 'others' || building.sector == 'town center'  && building.level > 0"> INFO </td>
+                        <td ng-if="building.sector == 'production'  && building.level > 0">
                         </td>
-                        <td ng-if="building.sector == 'military'">
-                            <img width="32%" ng-src="{{initial_troop.img}}">
+                        <td ng-if="building.sector == 'military' && building.level > 0">
+                            <img width="20%" ng-src="{{initial_troop.img}}">
                             <p style="font-weight: 900">{{"Time: "+convertSeconds(initial_troop.preparation_time)}}</p>
                             <table style="margin: auto" cellspacing="10" cellpadding="10">
                                 <th class="text-center">COST</th>
@@ -24,22 +27,22 @@
                                 </tbody>
                             </table>
                             <div style="margin-top: 10px">
-                                <button ng-if="buttonIsAvailable(true)" class="btn btn-sm" style="background-color: #578919; color: white" ng-click="train()"> Train Up </button>
+                                <button ng-if="buttonIsAvailable(true)" class="btn btn-xs btn-success" style="color: white" ng-click="train()"> Train Up </button>
                             </div>
-                            <table ng-if="preparing_troops.length > 0" style="margin: auto" cellspacing="10" cellpadding="10">
-                                    <th class="text-center" colspan="2">Current Trainings</th>
-                                <tbody>
-                                <tr ng-repeat="item in preparing_troops">
-                                    <td>{{item.type | capitalize}} <img width="15%" ng-src="images/military/{{item.type}}/profile.png"></td>
-                                    <td>
-                                        <button class="btn btn-sm" style="background-color: #661518; color: white" ng-click="cancel_train(item.id)">Cancel</button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        </td>
+                        <td ng-if="preparing_troops.length > 0">
+                            <dl>
+                                <dt ng-repeat="item in preparing_troops">
+                                    {{item.type}} <img width="15%" ng-src="images/military/{{item.type}}/profile.png">
+                                    <div style="background-color: whitesmoke; border: solid saddlebrown; border-radius: 2px;">
+                                        <div class="myBar" id="{{item.id+'Loading'}}"></div>
+                                    </div>
+                                    <button class="btn btn-xs btn-danger" style="margin-left: 30px;color: white" ng-click="cancel_train(item.id)">Cancel</button>
+                                </dt>
+                            </dl>
                         </td>
                         <td>
-                            <img width="15%" ng-src="{{building.img}}">
+                            <img width="25%" ng-src="{{building.img}}">
                             <p style="font-weight: 900">{{"Time: "+convertSeconds(building.construction_time)}}</p>
                             <div>
                                 <table style="margin: auto" cellspacing="10" cellpadding="10">
@@ -52,14 +55,13 @@
                                 </table>
                             </div>
                             <div style="margin-top: 10px">
-                                <button ng-if="buttonIsAvailable(false)" class="btn btn-sm" style="background-color: #578919; color: white" ng-click="upB()"> Level Up </button>
-                                <button ng-if="building.status == 'loading'" class="btn btn-sm" style="background-color: #661518; color: white" ng-click="cancel()"> Cancel Process </button>
+                                <button ng-if="buttonIsAvailable(false)" class="btn btn-xs btn-success" style="color: white" ng-click="upBuilding()"> Level Up </button>
+                                <button ng-if="building.status == 'loading'" class="btn btn-xs btn-danger" style="color: white" ng-click="cancelBuilding()"> Cancel Process </button>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>
