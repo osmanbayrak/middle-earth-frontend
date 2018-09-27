@@ -14,11 +14,11 @@ angular.module('myApp.login', ['ngRoute', 'ui.bootstrap'])
                         .success(function (profile) {
                             localStorage.setItem('profile', JSON.stringify(profile[0]))
                             $location.path("/home");
-                            $uibModalInstance.close()
-                        })
+                            $uibModalInstance.close();
+                        });
                 })
                 .error(function (data, status, header, config) {
-                    window.alert(data)
+                    window.alert(data);
                 });
         };
 

@@ -1,0 +1,16 @@
+<table style="position: relative;width: 85%;height: 100vh;margin: auto;color: white;">
+    <thead>
+        <th width="2%"></th>
+        <th class="text-center" width="7%" ng-repeat="x_cor in x_parcels">{{x_cor}}</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="y_cor in y_parcels">
+            <td>{{y_cor}}</td>
+            <td class="text-center" ng-repeat="x_cor in x_parcels">
+                <img id="{{x_cor+'.'+y_cor}}" ng-click="townDetail(x_cor, y_cor)"
+                     ng-style="{'cursor': thereIsTown[x_cor+'.'+y_cor][0] ? 'pointer': 'inherit'}"
+                     ng-src="images/town/1.png">{{showTown(x_cor, y_cor)}}
+            </td>
+        </tr>
+    </tbody>
+</table>

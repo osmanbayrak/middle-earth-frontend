@@ -1,5 +1,5 @@
 <!DOCTYPE html>
- <html lang="en" ng-app="myApp" style="height: 100%">
+ <html lang="en" ng-app="myApp" style="height: 100vh;">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +20,7 @@
   <title> Middle earth</title>
   <link rel="icon" type="image/png" href="images/meicon.png"/>
 </head>
-<body id="body" style="background-size: cover; background-repeat: no-repeat; font-family: 'Cinzel Decorative';font-variant-caps: small-caps; font-weight: bolder">
+<body id="body" style="min-height: 100vh;background-size: cover; background-repeat: no-repeat; font-family: 'Cinzel Decorative';font-variant-caps: small-caps; font-weight: bolder">
   <div ng-view></div>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="bower_components/angular/angular.js"></script>
@@ -30,6 +30,8 @@
   <script src="profile/profile.js"></script>
   <script src="register/register.js"></script>
   <script src="modals/login/login.js"></script>
+  <script src="world_map/map.js"></script>
+  <script src="town/town.js"></script>
   <script src="modals/building/building.js"></script>
   <script src="bootstrap/bootstrap-3.3.7/dist/js/bootstrap.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>

@@ -4,7 +4,7 @@
             <h3 style="font-weight: 900">{{"Level "+building.level}} {{building.type}} Building</h3>
             <table style="margin-left: auto;margin-right: auto" >
                 <thead>
-                    <th style="width: 220px!important;" ng-if="building.sector == 'others' || building.sector == 'town center'  && building.level > 0" class="text-center">Info</th>
+                    <th style="width: 220px!important;" ng-if="building.sector == 'others'  && building.level > 0" class="text-center">Info</th>
                     <th style="width: 220px!important;" ng-if="building.sector == 'production'  && building.level > 0" class="text-center">Production</th>
                     <th style="width: 220px!important;" ng-if="building.sector == 'military' && building.level > 0" class="text-center">Unit</th>
                     <th style="width: 120px!important;" ng-if="preparing_troops.length > 0" class="text-center">Trainings</th>
@@ -12,8 +12,33 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td ng-if="building.sector == 'others' || building.sector == 'town center'  && building.level > 0"> INFO </td>
+                        <td ng-if="building.sector == 'others'  && building.level > 0">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Info</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
                         <td ng-if="building.sector == 'production'  && building.level > 0">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Info</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Info</td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </td>
                         <td ng-if="building.sector == 'military' && building.level > 0">
                             <img width="20%" ng-src="{{initial_troop.img}}">

@@ -37,7 +37,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                                 center: {lancers:[], cavalry:[], archers: []}};
                 $scope.lancers = [];
                 $scope.cavs = [];
-                $scope.archers = []
+                $scope.archers = [];
                 angular.forEach($scope.currentTown.troops, function (v) {
                     if (v.type === "lancer") {
                         $scope.lancers.push(v);
@@ -66,7 +66,6 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
             })
             .error(function (data, status, header, config) {window.alert(data);});
     };
-    var refresh = setInterval($scope.page, 60000);
 
     $scope.buildingLoading = function (building) {
         if (!(building.type in $scope.interval)) {
@@ -139,14 +138,14 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                         }),
                         troop_queue:$scope.currentTown.troop_queue - 1
                     };
-                    $http.put("http://127.0.0.1:8000/towns/"+ $scope.currentTown.id +"/", cancelData)
+                    $http.patch("http://127.0.0.1:8000/towns/"+ $scope.currentTown.id +"/", cancelData)
                         .success(function (res) {
                             //clearInterval(interval.id.oftroop);
                             //delete $scope.interval[interval.id.oftroop];
                             $scope.page();
                         })
                         .error(function (err, status) {
-                            window.alert("Cant REPAY you because of" + err);
+                            window.alert("Cant REPAY you because of" + err.data);
                         });
                 })
                 .error(function (err,status) {
