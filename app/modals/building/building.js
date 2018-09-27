@@ -45,15 +45,15 @@ angular.module('myApp.buildingModal', ['ngRoute', 'ui.bootstrap'])
         if (v.status === "preparing") {
             if ($scope.building.type === "archery" && v.type === 'archer') {
                 $scope.preparing_troops.push(v);
-                setTimeout(function() {$scope.troopPreparing(v);}, 250);
+                setTimeout(function() {$scope.troopPreparing(v);}, 500);
             }
             if ($scope.building.type === "stable" && v.type === 'cavalry') {
                 $scope.preparing_troops.push(v);
-                setTimeout(function() {$scope.troopPreparing(v);}, 250);
+                setTimeout(function() {$scope.troopPreparing(v);}, 500);
             }
-            if ($scope.building.type === "lancer" && v.type === 'lancer') {
+            if ($scope.building.type === "barrack" && v.type === 'lancer') {
                 $scope.preparing_troops.push(v);
-                setTimeout(function() {$scope.troopPreparing(v);}, 250);
+                setTimeout(function() {$scope.troopPreparing(v);}, 500);
             }
         }
     });
@@ -68,11 +68,29 @@ angular.module('myApp.buildingModal', ['ngRoute', 'ui.bootstrap'])
     };
 
     if ($scope.building.type === "archery") {
-        $scope.initial_troop = {type: 'archer', cost: {food: 900, wood: 400, stone: 300}, preparation_time: 480, img: "images/military/archer/profile.png"};
+        var result = 480 - (Math.pow($scope.building.level, 22/6));
+        if (result > 0) {
+            $scope.time = result;
+        } else {
+            $scope.time = 15;
+        }
+        $scope.initial_troop = {type: 'archer', cost: {food: 900, wood: 400, stone: 300}, preparation_time: $scope.time, img: "images/military/archer/profile.png"};
     } else if ($scope.building.type === "barrack") {
-        $scope.initial_troop = {type: 'lancer', cost: {food: 800, wood: 300, stone: 250}, preparation_time: 360, img: "images/military/lancer/profile.png"};
+        var res = 360 - (Math.pow($scope.building.level, 22/6));
+        if (res > 0) {
+            $scope.time = res;
+        } else {
+            $scope.time = 15;
+        }
+        $scope.initial_troop = {type: 'lancer', cost: {food: 800, wood: 300, stone: 250}, preparation_time: $scope.time, img: "images/military/lancer/profile.png"};
     } else if ($scope.building.type === "stable") {
-        $scope.initial_troop = {type: 'cavalry', cost: {food: 2500, wood: 650, stone: 500}, preparation_time: 840, img: "images/military/cavalry/profile.png"};
+        var re = 840 - (Math.pow($scope.building.level, 22/6));
+        if (re > 0) {
+            $scope.time = re;
+        } else {
+            $scope.time = 15;
+        }
+        $scope.initial_troop = {type: 'cavalry', cost: {food: 2500, wood: 650, stone: 500}, preparation_time: $scope.time, img: "images/military/cavalry/profile.png"};
     }
 
     $scope.train = function () {
@@ -83,7 +101,7 @@ angular.module('myApp.buildingModal', ['ngRoute', 'ui.bootstrap'])
 
     $scope.cancel_train = function (troop_id) {
         $rootScope.trainNew($scope.initial_troop, true, troop_id); // trainProcess(troopType, isCancel, idOfTroop)
-        $rootScope.modalOpen.status = true;
+        $rootScope.modalReOpen.status = true;
         $uibModalInstance.close();
     };
 
@@ -99,13 +117,23 @@ angular.module('myApp.buildingModal', ['ngRoute', 'ui.bootstrap'])
                 $scope.checkEnough('food', $scope.initial_troop.cost.food) &&
                 $scope.checkEnough('wood', $scope.initial_troop.cost.wood) &&
                 $scope.checkEnough('stone', $scope.initial_troop.cost.stone)) {
-                return true;
+                return 'available';
+            } else if ($scope.town.troop_queue >= $scope.town.military_process_limit) {
+                return 'tainersBusy';
+            } else {
+                return 'underConstruction';
             }
         } else {
             if ($scope.town.building_queue < $scope.town.building_process_limit && $scope.building.status !== 'loading' && $scope.checkEnough('food', $scope.building.cost.food) &&
                 $scope.checkEnough('wood', $scope.building.cost.wood) &&
-                $scope.checkEnough('stone', $scope.building.cost.stone)) {
-                return true;
+                $scope.checkEnough('stone', $scope.building.cost.stone) && $scope.preparing_troops.length === 0) {
+                    return 'available';
+            } else if ($scope.town.building_queue >= $scope.town.building_process_limit && $scope.building.status !== 'loading') {
+                return 'buildersBusy';
+            } else if ($scope.preparing_troops.length > 0) {
+                return 'waitTraining';
+            } else {
+                return 'cancel';
             }
         }
     };

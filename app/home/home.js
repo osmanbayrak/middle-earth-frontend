@@ -35,12 +35,18 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                                 west: {lancers:[], cavalry:[], archers: []},
                                 east: {lancers:[], cavalry:[], archers: []},
                                 center: {lancers:[], cavalry:[], archers: []}};
+                $scope.lancers = [];
+                $scope.cavs = [];
+                $scope.archers = []
                 angular.forEach($scope.currentTown.troops, function (v) {
                     if (v.type === "lancer") {
+                        $scope.lancers.push(v);
                         $scope.zones[v.town_position].lancers.push(v);
                     } else if (v.type === "cavalry") {
+                        $scope.cavs.push(v);
                         $scope.zones[v.town_position].cavalry.push(v);
                     } else if (v.type === "archer") {
+                        $scope.archers.push(v);
                         $scope.zones[v.town_position].archers.push(v);
                     }
                 });

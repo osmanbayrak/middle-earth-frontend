@@ -4,11 +4,11 @@
             <h3 style="font-weight: 900">{{"Level "+building.level}} {{building.type}} Building</h3>
             <table style="margin-left: auto;margin-right: auto" >
                 <thead>
-                    <th style="width: 220px" ng-if="building.sector == 'others' || building.sector == 'town center'  && building.level > 0" class="text-center">Info</th>
-                    <th style="width: 220px" ng-if="building.sector == 'production'  && building.level > 0" class="text-center">Production</th>
-                    <th style="width: 220px" ng-if="building.sector == 'military' && building.level > 0" class="text-center">Train</th>
-                    <th style="width: 220px" ng-if="preparing_troops.length > 0" class="text-center">Current Trainings</th>
-                    <th style="width: 220px" class="text-center">Construction</th>
+                    <th style="width: 220px!important;" ng-if="building.sector == 'others' || building.sector == 'town center'  && building.level > 0" class="text-center">Info</th>
+                    <th style="width: 220px!important;" ng-if="building.sector == 'production'  && building.level > 0" class="text-center">Production</th>
+                    <th style="width: 220px!important;" ng-if="building.sector == 'military' && building.level > 0" class="text-center">Unit</th>
+                    <th style="width: 120px!important;" ng-if="preparing_troops.length > 0" class="text-center">Trainings</th>
+                    <th style="width: 200px!important;" class="text-center">Construction</th>
                 </thead>
                 <tbody>
                     <tr>
@@ -22,24 +22,27 @@
                                 <th class="text-center">COST</th>
                                 <tbody>
                                 <tr ng-repeat="(k,v) in initial_troop.cost">
-                                    <td ng-style="{'color': (checkEnough(k,v) ? 'green':'#7E1417')}">{{v}} {{" "+ k}} {{checkEnough(k,v) ? undefined: " (not enough)"}}</td>
+                                    <td ng-style="{'color': (checkEnough(k,v) ? 'green':'#7E1417')}">{{v}} {{" "+ k}}</td>
                                 </tr>
                                 </tbody>
                             </table>
                             <div style="margin-top: 10px">
-                                <button ng-if="buttonIsAvailable(true)" class="btn btn-xs btn-success" style="color: white" ng-click="train()"> Train Up </button>
+                                <button ng-if="buttonIsAvailable(true)=='available'" class="btn btn-sm btn-success" style="font-weight: 700;color: white" ng-click="train()"> Train Up </button>
+                                <button ng-if="buttonIsAvailable(true)=='tainersBusy'" disabled class="btn btn-sm btn-danger" style="font-weight: 700;color: white"> Trainers Busy </button>
+                                <button ng-if="buttonIsAvailable(true)=='underConstruction'" disabled class="btn btn-sm btn-danger" style="font-weight: 700;color: white"> Under Construction </button>
                             </div>
                         </td>
                         <td ng-if="preparing_troops.length > 0">
-                            <dl>
-                                <dt ng-repeat="item in preparing_troops">
-                                    {{item.type}} <img width="15%" ng-src="images/military/{{item.type}}/profile.png">
-                                    <div style="background-color: whitesmoke; border: solid saddlebrown; border-radius: 2px;">
-                                        <div class="myBar" id="{{item.id+'Loading'}}"></div>
-                                    </div>
-                                    <button class="btn btn-xs btn-danger" style="margin-left: 30px;color: white" ng-click="cancel_train(item.id)">Cancel</button>
-                                </dt>
-                            </dl>
+                            <div ng-repeat="item in preparing_troops" style="margin-top: 10px;">
+                                <div style="margin-bottom: 5px">
+                                    {{item.type}} <img width="20%" ng-src="images/military/{{item.type}}/profile.png">
+                                </div>
+                                <div class="pull-left" style="background-color: whitesmoke; border: solid saddlebrown; border-radius: 2px;width: 76px;">
+                                    <div class="myBar" id="{{item.id+'Loading'}}"></div>
+                                </div>
+                                <button class="btn btn-xs btn-danger pull-right" style="margin-left: 5px;font-weight: 700;color: white" ng-click="cancel_train(item.id)">Cancel</button>
+                                <div class="clearfix"></div>
+                            </div>
                         </td>
                         <td>
                             <img width="25%" ng-src="{{building.img}}">
@@ -49,14 +52,16 @@
                                     <th class="text-center">COST</th>
                                     <tbody>
                                     <tr ng-repeat="(k,v) in building.cost">
-                                        <td ng-style="{'color': (checkEnough(k,v) ? 'green':'#7E1417')}">{{v}} {{" "+ k}} {{checkEnough(k,v) ? undefined: " (not enough)"}}</td>
+                                        <td ng-style="{'color': (checkEnough(k,v) ? 'green':'#7E1417')}">{{v}} {{" "+ k}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div style="margin-top: 10px">
-                                <button ng-if="buttonIsAvailable(false)" class="btn btn-xs btn-success" style="color: white" ng-click="upBuilding()"> Level Up </button>
-                                <button ng-if="building.status == 'loading'" class="btn btn-xs btn-danger" style="color: white" ng-click="cancelBuilding()"> Cancel Process </button>
+                                <button ng-if="buttonIsAvailable(false)=='available'" class="btn btn-sm btn-success" style="font-weight: 700;color: white" ng-click="upBuilding()"> Level Up </button>
+                                <button ng-if="buttonIsAvailable(false)=='buildersBusy'" disabled class="btn btn-sm btn-danger" style="font-weight: 700;color: white"> Builders Busy </button>
+                                <button ng-if="buttonIsAvailable(false)=='waitTraining'" disabled class="btn btn-sm btn-danger" style="font-weight: 700;color: white"> Wait Training </button>
+                                <button ng-if="buttonIsAvailable(false)=='cancel'" class="btn btn-sm btn-danger" style="font-weight: 700;color: white" ng-click="cancelBuilding()"> Cancel Process </button>
                             </div>
                         </td>
                     </tr>

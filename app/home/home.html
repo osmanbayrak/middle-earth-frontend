@@ -2,29 +2,29 @@
     <img style="position: relative;" width="100%" src="images/basic.jpg">
     <div id="militaryDiv">
         <div id="north">
-            <img ng-show="zones.north.lancers.length > 0" style="cursor: pointer; position: absolute;top: 8%; left: 45%;" width="5%" src="images/military/lancer/1.png">
-            <img ng-show="zones.north.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 6%; left: 35%;" width="7%" src="images/military/cavalry/turnleft.png">
-            <img ng-show="zones.north.archers.length > 0" style="cursor: pointer; position: absolute;top: 8%; left: 52%;" width="4%" src="images/military/archer/1.png">
+            <img ng-show="zones.north.lancers.length > 0" style="cursor: pointer; position: absolute;top: 8%; left: 45%;" width="6%" src="images/military/lancer/1.png">
+            <img ng-show="zones.north.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 6%; left: 35%;" width="8%" src="images/military/cavalry/turnleft.png">
+            <img ng-show="zones.north.archers.length > 0" style="cursor: pointer; position: absolute;top: 8%; left: 52%;" width="5%" src="images/military/archer/1.png">
         </div>
         <div id="south">
-            <img ng-show="zones.south.lancers.length > 0" style="cursor: pointer; position: absolute;top: 85%; left: 45%;" width="5%" src="images/military/lancer/1.png">
-            <img ng-show="zones.south.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 89%; left: 50%;" width="7%" src="images/military/cavalry/turnleft.png">
-            <img ng-show="zones.south.archers.length > 0" style="cursor: pointer; position: absolute;top: 85%; left: 59%;" width="4%" src="images/military/archer/1.png">
+            <img ng-show="zones.south.lancers.length > 0" style="cursor: pointer; position: absolute;top: 85%; left: 45%;" width="6%" src="images/military/lancer/1.png">
+            <img ng-show="zones.south.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 89%; left: 50%;" width="8%" src="images/military/cavalry/turnleft.png">
+            <img ng-show="zones.south.archers.length > 0" style="cursor: pointer; position: absolute;top: 85%; left: 59%;" width="5%" src="images/military/archer/1.png">
         </div>
         <div id="east">
-            <img ng-show="zones.east.lancers.length > 0" style="cursor: pointer; position: absolute;top: 40%; left: 85%;" width="5%" src="images/military/lancer/1.png">
-            <img ng-show="zones.east.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 45%; left: 85%;" width="7%" src="images/military/cavalry/1.png">
-            <img ng-show="zones.east.archers.length > 0" style="cursor: pointer; position: absolute;top: 35%; left: 85%;" width="4%" src="images/military/archer/1.png">
+            <img ng-show="zones.east.lancers.length > 0" style="cursor: pointer; position: absolute;top: 40%; left: 85%;" width="6%" src="images/military/lancer/1.png">
+            <img ng-show="zones.east.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 45%; left: 85%;" width="8%" src="images/military/cavalry/1.png">
+            <img ng-show="zones.east.archers.length > 0" style="cursor: pointer; position: absolute;top: 35%; left: 85%;" width="5%" src="images/military/archer/1.png">
         </div>
         <div id="west">
-            <img ng-show="zones.west.lancers.length > 0" style="cursor: pointer; position: absolute;top: 49%; left: 7%;" width="5%" src="images/military/lancer/1.png">
-            <img ng-show="zones.west.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 41%; left: 5%;" width="7%" src="images/military/cavalry/turnleft.png">
-            <img ng-show="zones.west.archers.length > 0" style="cursor: pointer; position: absolute;top: 35%; left: 7%;" width="4%" src="images/military/archer/1.png">
+            <img ng-show="zones.west.lancers.length > 0" style="cursor: pointer; position: absolute;top: 49%; left: 7%;" width="6%" src="images/military/lancer/1.png">
+            <img ng-show="zones.west.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 41%; left: 5%;" width="8%" src="images/military/cavalry/turnleft.png">
+            <img ng-show="zones.west.archers.length > 0" style="cursor: pointer; position: absolute;top: 35%; left: 7%;" width="5%" src="images/military/archer/1.png">
         </div>
         <div id="center">
-            <img ng-show="zones.center.lancers.length > 0" style="cursor: pointer; position: absolute;top: 42%; left: 40%;" width="5%" src="images/military/lancer/1.png">
-            <img ng-show="zones.center.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 42%; left: 52%;" width="7%" src="images/military/cavalry/1.png">
-            <img ng-show="zones.center.archers.length > 0" style="cursor: pointer; position: absolute;top: 42%; left: 46%;" width="4%" src="images/military/archer/1.png">
+            <img ng-show="zones.center.lancers.length > 0" style="cursor: pointer; position: absolute;top: 42%; left: 40%;" width="6%" src="images/military/lancer/1.png">
+            <img ng-show="zones.center.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 42%; left: 52%;" width="8%" src="images/military/cavalry/1.png">
+            <img ng-show="zones.center.archers.length > 0" style="cursor: pointer; position: absolute;top: 42%; left: 46%;" width="5%" src="images/military/archer/1.png">
         </div>
     </div>
     <div id="buildingDiv">
@@ -126,6 +126,36 @@
             <tr ng-repeat="(k,v) in currentTown.resources">
                 <td>{{k | uppercase}} : {{" "+convertFloor(v)}}</td>
             </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="width: 180px;height: 160px;position: fixed;top: 22%; left:1%;background-image: url(images/paper.png); background-size: cover;border-radius: 30px;border: 5px solid saddlebrown">
+        <table style="margin: auto; margin-top: 5%;">
+            <tbody class="pull-left" style="margin-left: 10px">
+                <tr>
+                    <td ng-style="{'color': (currentTown.building_queue < currentTown.building_process_limit ? 'green':'#7E1417')}">Building Process: {{currentTown.building_queue}} / {{currentTown.building_process_limit}}</td>
+                </tr>
+                <tr>
+                    <td ng-style="{'color': (currentTown.troop_queue < currentTown.military_process_limit ? 'green':'#7E1417')}">Military Process: {{currentTown.troop_queue}} / {{currentTown.military_process_limit}}</td>
+                </tr>
+                <tr style="font-size: large;font-weight: 700">
+                    <td>Total Army</td>
+                </tr>
+                <tr style="font-size: larger;font-weight: 700">
+                    <td>
+                        <img width="12%" src="images/military/lancer/icon.png">: {{lancers.length}}
+                    </td>
+                </tr>
+                <tr style="font-size: larger;font-weight: 700">
+                    <td>
+                        <img width="12%" src="images/military/archer/icon.png">: {{archers.length}}
+                    </td>
+                </tr>
+                <tr style="font-size: larger;font-weight: 700">
+                    <td>
+                        <img width="12%" src="images/military/cavalry/icon.png">: {{cavs.length}}
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
