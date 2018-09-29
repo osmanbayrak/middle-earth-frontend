@@ -17,6 +17,16 @@ angular.module('myApp.buildingModal', ['ngRoute', 'ui.bootstrap'])
     $scope.troops = $scope.town.troops;
     $scope.preparing_troops = [];
 
+    $scope.prodInfo = function () {
+        if ($scope.building.type === "timber"){
+            return {perHour: $scope.town.production.perHour.wood, type: "wood", capacity: $scope.town.production.capacity.wood};
+        } else if ($scope.building.type === "farm"){
+            return {perHour: $scope.town.production.perHour.food, type: "food", capacity: $scope.town.production.capacity.food};
+        } else if ($scope.building.type === "stone"){
+            return {perHour: $scope.town.production.perHour.stone, type: "stone", capacity: $scope.town.production.capacity.stone};
+        }
+    };
+
     $scope.troopPreparing = function (troop) {
         if (!(troop.id in $scope.interval)) {
             var a = document.getElementById(troop.id +'Loading');

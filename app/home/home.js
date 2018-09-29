@@ -18,7 +18,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
         date.setSeconds(seconds);
         return date.toISOString().substr(11, 8);
     };
-    $scope.convertFloor = function (data) {
+    $rootScope.convertFloor = function (data) {
         return Math.floor(data);
     };
 
@@ -36,16 +36,26 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                                 east: {lancers:[], cavalry:[], archers: []},
                                 center: {lancers:[], cavalry:[], archers: []}};
                 $scope.lancers = [];
+                $scope.preparings = {lancers:[], cavs:[], archers:[]};
                 $scope.cavs = [];
                 $scope.archers = [];
                 angular.forEach($scope.currentTown.troops, function (v) {
                     if (v.type === "lancer") {
                         $scope.lancers.push(v);
+                        if (v.status === 'preparing') {
+                            $scope.preparings.lancers.push(v);
+                        }
                         $scope.zones[v.town_position].lancers.push(v);
                     } else if (v.type === "cavalry") {
                         $scope.cavs.push(v);
+                        if (v.status === 'preparing') {
+                            $scope.preparings.cavs.push(v);
+                        }
                         $scope.zones[v.town_position].cavalry.push(v);
                     } else if (v.type === "archer") {
+                        if (v.status === 'preparing') {
+                            $scope.preparings.archers.push(v);
+                        }
                         $scope.archers.push(v);
                         $scope.zones[v.town_position].archers.push(v);
                     }
@@ -161,6 +171,13 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
     };
     $scope.outEmpty = function (e) {
         e.target.style.opacity = '0.5';
+    };
+
+    $scope.onBuilding = function (e) {
+        e.target.style.filter = 'brightness(150%)';
+    };
+    $scope.outBuilding = function (e) {
+        e.target.style.filter = 'brightness(100%)';
     };
 
     $scope.buildingModal = function (building) {

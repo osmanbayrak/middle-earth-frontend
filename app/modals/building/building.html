@@ -28,16 +28,13 @@
                         </td>
                         <td ng-if="building.sector == 'production'  && building.level > 0">
                             <table>
-                                <thead>
                                 <tr>
-                                    <th>Info</th>
+                                    <td>Current <i class="fa fa-arrow-right"></i>{{convertFloor(prodInfo().perHour)}} {{prodInfo().type}} per hour</td>
                                 </tr>
-                                </thead>
-                                <tbody>
+                                <tr><td style="color: transparent">.</td></tr>
                                 <tr>
-                                    <td>Info</td>
+                                    <td>Extra capacity <i class="fa fa-arrow-right"></i>{{convertFloor(prodInfo().capacity)}} storage</td>
                                 </tr>
-                                </tbody>
                             </table>
                         </td>
                         <td ng-if="building.sector == 'military' && building.level > 0">
@@ -60,9 +57,9 @@
                         <td ng-if="preparing_troops.length > 0">
                             <div ng-repeat="item in preparing_troops" style="margin-top: 10px;">
                                 <div style="margin-bottom: 5px">
-                                    {{item.type}} <img width="20%" ng-src="images/military/{{item.type}}/profile.png">
+                                    {{item.type}} <img width="40%" ng-src="images/military/{{item.type}}/training.gif">
                                 </div>
-                                <div class="pull-left" style="background-color: whitesmoke; border: solid saddlebrown; border-radius: 2px;width: 76px;">
+                                <div class="pull-left" style="background-color: whitesmoke; border: solid saddlebrown; border-radius: 2px;width: 70px;">
                                     <div class="myBar" id="{{item.id+'Loading'}}"></div>
                                 </div>
                                 <button class="btn btn-xs btn-danger pull-right" style="margin-left: 5px;font-weight: 700;color: white" ng-click="cancel_train(item.id)">Cancel</button>
