@@ -1,5 +1,11 @@
 <div style="position: relative">
     <img style="position: relative;" width="100%" src="images/basic.jpg">
+    <div id="arrows">
+        <img ng-mouseover="onArrow($event)" ng-mouseleave="outArrow($event)" style="opacity:0.5;cursor: pointer; position: absolute;top: 0; left: 45%;" width="10%" src="images/strangerTown/downArrow.png">
+        <img ng-mouseover="onArrow($event)" ng-mouseleave="outArrow($event)" style="opacity:0.5;cursor: pointer; position: absolute;top: 80%; left: 47%;" width="10%" src="images/strangerTown/upArrow.png">
+        <img ng-mouseover="onArrow($event)" ng-mouseleave="outArrow($event)" style="opacity:0.5;cursor: pointer; position: absolute;top: 40%; left: 85%;" width="10%" src="images/strangerTown/leftArrow.png">
+        <img ng-mouseover="onArrow($event)" ng-mouseleave="outArrow($event)" style="opacity:0.5;cursor: pointer; position: absolute;top: 45%; left: 7%;" width="10%" src="images/strangerTown/rightArrow.png">
+    </div>
     <div id="militaryDiv">
         <div id="north">
             <img ng-show="zones.north.lancers.length > 0" style="cursor: pointer; position: absolute;top: 8%; left: 45%;" width="6%" src="images/military/lancer/1.png">
@@ -30,39 +36,39 @@
     <div id="buildingDiv">
         <div id="mainDiv">
             <img ng-show="main.level > 0" style="cursor: pointer; position: absolute;top: 20%; left: 45%;" width="10%" ng-src="{{main.img}}">
-            <img ng-show="main.level == 0" style="cursor: pointer; position: absolute;top: 20%; left: 45%;" width="10%" src="images/empty.png">
+            <img ng-show="main.level == 0" style="cursor: pointer; position: absolute;top: 20%; left: 45%;" width="10%" src="images/ownTown/empty.png">
         </div>
         <div id="barracksDiv">
             <img ng-show="barrack.level > 0" style="cursor: pointer; position: absolute;top: 37%; left: 30%;" width="8%" ng-src="{{barrack.img}}">
-            <img ng-show="barrack.level == 0" style="cursor: pointer; position: absolute;top: 37%; left: 30%;" width="8%" src="images/empty.png">
+            <img ng-show="barrack.level == 0" style="cursor: pointer; position: absolute;top: 37%; left: 30%;" width="8%" src="images/ownTown/empty.png">
         </div>
         <div id="stableDiv">
             <img ng-show="stable.level > 0" style="cursor: pointer; position: absolute;top: 26%; left: 35%;" width="8%" ng-src="{{stable.img}}">
-            <img ng-show="stable.level == 0" style="cursor: pointer; position: absolute;top: 26%; left: 35%;" width="8%" src="images/empty.png">
+            <img ng-show="stable.level == 0" style="cursor: pointer; position: absolute;top: 26%; left: 35%;" width="8%" src="images/ownTown/empty.png">
         </div>
         <div id="timberDiv">
             <img ng-show="timber.level > 0" style="cursor: pointer; position: absolute;top: 58%; left: 68%;" width="8%" ng-src="{{timber.img}}">
-            <img ng-show="timber.level == 0" style="cursor: pointer; position: absolute;top: 58%; left: 68%;" width="8%" src="images/empty.png">
+            <img ng-show="timber.level == 0" style="cursor: pointer; position: absolute;top: 58%; left: 68%;" width="8%" src="images/ownTown/empty.png">
         </div>
         <div id="stoneDiv">
             <img ng-show="stone.level > 0" style="cursor: pointer; position: absolute;top: 26%; left: 60%;" width="8%" ng-src="{{stone.img}}">
-            <img ng-show="stone.level == 0" style="cursor: pointer; position: absolute;top: 26%; left: 60%;" width="8%" src="images/empty.png">
+            <img ng-show="stone.level == 0" style="cursor: pointer; position: absolute;top: 26%; left: 60%;" width="8%" src="images/ownTown/empty.png">
         </div>
         <div id="houseDiv">
             <img ng-show="house.level > 0" style="cursor: pointer; position: absolute;top: 53%; left: 50%;" width="8%" ng-src="{{house.img}}">
-            <img ng-show="house.level == 0" style="cursor: pointer; position: absolute;top: 53%; left: 50%;" width="8%" src="images/empty.png">
+            <img ng-show="house.level == 0" style="cursor: pointer; position: absolute;top: 53%; left: 50%;" width="8%" src="images/ownTown/empty.png">
         </div>
         <div id="depotDiv">
             <img ng-show="depot.level > 0"  style="cursor: pointer; position: absolute;top: 53%; left: 35%;" width="8%" ng-src="{{depot.img}}">
-            <img ng-show="depot.level == 0"  style="cursor: pointer; position: absolute;top: 53%; left: 35%;" width="8%" src="images/empty.png">
+            <img ng-show="depot.level == 0"  style="cursor: pointer; position: absolute;top: 53%; left: 35%;" width="8%" src="images/ownTown/empty.png">
         </div>
         <div id="farmDiv">
             <img ng-show="farm.level > 0" style="cursor: pointer; position: absolute;top: 33%; left: 65%;" width="8%" ng-src="{{farm.img}}">
-            <img ng-show="farm.level == 0" style="cursor: pointer; position: absolute;top: 33%; left: 65%;" width="8%" src="images/empty.png">
+            <img ng-show="farm.level == 0" style="cursor: pointer; position: absolute;top: 33%; left: 65%;" width="8%" src="images/ownTown/empty.png">
         </div>
         <div id="archeryDiv">
             <img ng-show="archery.level > 0" style="cursor: pointer; position: absolute;top: 42%; left: 70%;" width="8%" ng-src="{{archery.img}}">
-            <img ng-show="archery.level == 0" style="cursor: pointer; position: absolute;top: 42%; left: 70%;" width="8%" src="images/empty.png">
+            <img ng-show="archery.level == 0" style="cursor: pointer; position: absolute;top: 42%; left: 70%;" width="8%" src="images/ownTown/empty.png">
         </div>
     </div>
 </div>

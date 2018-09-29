@@ -1,15 +1,19 @@
-<table style="position: relative;width: 85%;height: 100vh;margin: auto;color: white;">
+<button ng-click="moveMap('east')" style="position:absolute;top:45%;left: 95%" class="btn btn-clipboard-hover"><i class="fa fa-arrow-right"></i></button>
+<button ng-click="moveMap('west')" style="position:absolute;top:48%;left: 5%" class="btn btn-clipboard-hover"><i class="fa fa-arrow-left"></i></button>
+<button ng-click="moveMap('north')" style="position:absolute;top:1%;left: 48%" class="btn btn-clipboard-hover"><i class="fa fa-arrow-up"></i></button>
+<button ng-click="moveMap('south')" style="position:absolute;top:100%;left: 48%" class="btn btn-clipboard-hover"><i class="fa fa-arrow-down"></i></button>
+<table style="position: relative;width: 75%;height: 95vh;table-layout: fixed;margin: auto;color: white;top:40px">
     <thead>
-        <th width="2%"></th>
-        <th class="text-center" width="7%" ng-repeat="x_cor in x_parcels">{{x_cor}}</th>
+        <th width="1%"></th>
+        <th class="text-center" width="5%" ng-repeat="x_cor in x_parcels">{{x_cor}}</th>
     </thead>
     <tbody>
-        <tr ng-repeat="y_cor in y_parcels">
+        <tr style="height: 13%" ng-repeat="y_cor in y_parcels">
             <td>{{y_cor}}</td>
             <td class="text-center" ng-repeat="x_cor in x_parcels">
-                <img id="{{x_cor+'.'+y_cor}}" ng-click="townDetail(x_cor, y_cor)"
-                     ng-style="{'cursor': thereIsTown[x_cor+'.'+y_cor][0] ? 'pointer': 'inherit'}"
-                     ng-src="images/town/1.png">{{showTown(x_cor, y_cor)}}
+                <img ng-if="thereIsTown[x_cor+'.'+y_cor][0]" id="{{x_cor+'.'+y_cor}}" ng-click="townDetail(x_cor, y_cor)"
+                     style="cursor: pointer" width="80%"
+                     ng-src="images/map/smallTown.png">{{showTown(x_cor, y_cor)}}
             </td>
         </tr>
     </tbody>

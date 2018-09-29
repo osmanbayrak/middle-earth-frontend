@@ -132,8 +132,10 @@ angular.module('myApp.buildingModal', ['ngRoute', 'ui.bootstrap'])
                 return 'buildersBusy';
             } else if ($scope.preparing_troops.length > 0) {
                 return 'waitTraining';
+            } else if ($scope.building.status === 'loading') {
+                return'cancel';
             } else {
-                return 'cancel';
+                return 'Not Enough Resources';
             }
         }
     };

@@ -19,21 +19,5 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 }]).
 run(function ($location, $rootScope, $http) {
     $http.defaults.headers.common.Authorization = 'Token '+ localStorage.getItem('key');
-    document.getElementById('body').style.backgroundImage = "url(images/map.png)";
 
-  $rootScope.$on('$routeChangeStart', function($event, next, current) {
-      if (localStorage.getItem('profile') !== undefined) {
-          if ($location.path() === '/register') {
-              document.getElementById('body').style.backgroundImage = "url(images/asterix.jpg)";
-          } else if ($location.path() === '/map') {
-              document.getElementById('body').style.backgroundImage = "url(images/map.png)";
-              document.getElementById('body').style.backgroundRepeat = "repeat";
-          }
-          else {
-              document.getElementById('body').style.backgroundImage = "url(images/map.png)";
-          }
-      } else {
-          $location.path('/register');
-      }
-    });
 });

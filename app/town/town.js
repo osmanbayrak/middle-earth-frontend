@@ -14,7 +14,7 @@ angular.module('myApp.town', ['ngRoute', 'ui.bootstrap'])
     $scope.page = function () {
         $http.get("http://127.0.0.1:8000/towns/"+$routeParams.townId+"/")
             .success(function (res) {
-                $scope.currentTown = res;
+                $scope.strangerTown = res;
                 $scope.zones = {north: {lancers:[], cavalry:[], archers: []},
                     south: {lancers:[], cavalry:[], archers: []},
                     west: {lancers:[], cavalry:[], archers: []},
@@ -23,7 +23,7 @@ angular.module('myApp.town', ['ngRoute', 'ui.bootstrap'])
                 $scope.lancers = [];
                 $scope.cavs = [];
                 $scope.archers = [];
-                angular.forEach($scope.currentTown.troops, function (v) {
+                angular.forEach($scope.strangerTown.troops, function (v) {
                     if (v.type === "lancer") {
                         $scope.lancers.push(v);
                         $scope.zones[v.town_position].lancers.push(v);
@@ -35,16 +35,22 @@ angular.module('myApp.town', ['ngRoute', 'ui.bootstrap'])
                         $scope.zones[v.town_position].archers.push(v);
                     }
                 });
-                angular.forEach($scope.currentTown.buildings, function (v) {
-                    console.log(v);
+                angular.forEach($scope.strangerTown.buildings, function (v) {
                     $scope[v.type] = v;
                 });
-                $scope.currentTown.resources = JSON.parse($scope.currentTown.resources.replace(/u/g,'').replace(/\'/g,'\"'));
+                $scope.strangerTown.resources = JSON.parse($scope.strangerTown.resources.replace(/u/g,'').replace(/\'/g,'\"'));
 
             }).error(function (err) {
             window.alert(err.data);
         });
     };
     $scope.page();
+
+    $scope.onArrow = function (e) {
+        e.target.style.opacity = '1';
+    };
+    $scope.outArrow = function (e) {
+        e.target.style.opacity = '0.5';
+    };
 
 }]);

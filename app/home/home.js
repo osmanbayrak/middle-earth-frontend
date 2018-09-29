@@ -156,6 +156,13 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
 
     $scope.page();
 
+    $scope.onEmpty = function (e) {
+        e.target.style.opacity = '1';
+    };
+    $scope.outEmpty = function (e) {
+        e.target.style.opacity = '0.5';
+    };
+
     $scope.buildingModal = function (building) {
         $uibModal.open({
             templateUrl: 'modals/building/building.html',

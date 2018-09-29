@@ -1,23 +1,26 @@
-<div class="modal-content" style="background: url(images/paper.png);border: 20px solid transparent;border-image: url(images/paper.png)">
+<div class="modal-content" style="background: url(images/scrollpaper.png);background-size: cover;height: 470px;width: 600px">
     <div class="custom-modal-body">
-        <form class="form-horizontal" style="margin-top: 10%; margin-right: 15%" name="loginForm" novalidate id="loginForm" ng-submit="login()">
-            <div class="form-group">
-                <label for="usrname" style="font-size: large; color: burlywood" class="control-label col-md-5">Username:</label>
-                <div class="col-md-7">
-                    <input style="background-color: burlywood" id="usrname" class="form-control" type="text" required ng-model="user.username">
+        <div class="text-center" style="padding-top: 13%">
+            <h2 style="font-weight: 900">Login</h2>
+            <form class="form-horizontal" style="font-weight: 900;margin-top: 5%" name="loginForm" novalidate id="loginForm" ng-submit="login()">
+                <div class="form-group" style="margin-left: 10%">
+                    <label for="usrname" class="control-label col-md-3 col-xs-3">Username :</label>
+                    <div class="col-md-5 col-xs-7">
+                        <input placeholder="Username" style="background-color: transparent;border-radius: 0;border-bottom-color: grey; border-top: 0;border-left: 0;border-right: 0;box-shadow: none;" id="usrname" class="form-control" type="text" required ng-model="user.username">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="pasw1" style="font-size: large; color: burlywood" class="control-label col-md-5">Password:</label>
-                <div class="col-md-7">
-                    <input style="background-color: burlywood" id="pasw1" class="form-control" type="password" required ng-model="user.password">
+                <div class="form-group" style="margin-left: 10%">
+                    <label for="pasw1" class="control-label col-md-3 col-xs-3">Password :</label>
+                    <div class="col-md-5 col-xs-7">
+                        <input placeholder="Password" style="background-color: transparent;border-radius: 0;border-bottom-color: gray; border-top: 0;border-left: 0;border-right: 0;box-shadow: none;" id="pasw1" class="form-control" type="password" required ng-model="user.password">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-5 col-md-7">
-                    <button class="btn btn-success" type="submit"> Login </button>
+                <div class="form-group">
+                    <div class="text-center">
+                        <button class="btn btn-default" style="width: 25%;font-weight: 900" type="submit"> Login </button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
