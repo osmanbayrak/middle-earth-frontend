@@ -79,7 +79,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                     $scope.buildingModal($rootScope.modalReOpen.building);
                 }
             })
-            .error(function (data, status, header, config) {window.alert(data);});
+            .error(function (err, status, header, config) {window.alert('Cant get your profile and town informations because of ' + err.substr(22, 30));});
     };
 
     $scope.buildingLoading = function (building) {
@@ -128,7 +128,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                     delete $scope.interval[building.type];
                     $scope.page();
                 })
-                .error(function (err, status, header, config) {window.alert("Check your queue and resources and try again!"); $scope.page();});
+                .error(function (err, status, header, config) {window.alert("You cant becaos of"+err.data); $scope.page();});
         }
     };
 
@@ -145,7 +145,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                 .success(function (res) {
                     $scope.page();
                 })
-                .error(function (err, status, header, config) {window.alert("Check your queue and resources then try again!"); $scope.page();});
+                .error(function (err, status, header, config) {window.alert("You cant create troop because of "+ err.substr(22, 30)); $scope.page();});
 
         } else {
             $http.delete("http://127.0.0.1:8000/troops/"+troop_id+"/")
@@ -165,11 +165,11 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                             $scope.page();
                         })
                         .error(function (err, status) {
-                            window.alert("Cant REPAY you because of" + err.data);
+                            window.alert("Cant REPAY you because of" + err.substr(22, 30));
                         });
                 })
                 .error(function (err,status) {
-                    window.alert("Cant cancel because of" + err);
+                    window.alert("Cant cancel because of" + err.substr(22, 30));
                 });
         }
     };

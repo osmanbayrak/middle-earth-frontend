@@ -124,15 +124,18 @@ angular.module('myApp.buildingModal', ['ngRoute', 'ui.bootstrap'])
 
     $scope.buttonIsAvailable = function (forTroop) {
         if (forTroop === true) {
-            if ($scope.town.troop_queue < $scope.town.military_process_limit && $scope.building.status !== 'loading' &&
-                $scope.checkEnough('food', $scope.initial_troop.cost.food) &&
+            if (!($scope.checkEnough('food', $scope.initial_troop.cost.food) &&
                 $scope.checkEnough('wood', $scope.initial_troop.cost.wood) &&
-                $scope.checkEnough('stone', $scope.initial_troop.cost.stone)) {
-                return 'available';
+                $scope.checkEnough('stone', $scope.initial_troop.cost.stone))) {
+                return 'notEnoughResources';
             } else if ($scope.town.troop_queue >= $scope.town.military_process_limit) {
                 return 'tainersBusy';
-            } else {
+            } else if ($scope.town.population_limit <= $scope.town.population) {
+                return 'populationMax';
+            } else if ($scope.building.status === 'loading'){
                 return 'underConstruction';
+            } else {
+                return 'available';
             }
         } else {
             if ($scope.town.building_queue < $scope.town.building_process_limit && $scope.building.status !== 'loading' && $scope.checkEnough('food', $scope.building.cost.food) &&

@@ -31,7 +31,10 @@
             <div style="font-size: 1vw">World Map</div>
             <div><img ng-click="map()" style="position: absolute;cursor: pointer;" ng-mouseleave="darker($event)" ng-mouseover="brighter($event)" src="images/mapIcon.png" width="83%"> </div>
         </div>
-        <div style="margin-top: 2%;position: relative;float: left;left: 31%;font-size: 2.3vw">{{currentTown.name}}</div>
+        <div style="margin-top: 2%;position: relative;float: left;left: 31%;font-size: 2.3vw">
+            {{currentTown.name}}
+            <div class="text-center" style="font-size: 1vw" ng-if="currentTown.name === profile.town[0].name">(Home town)</div>
+        </div>
         <div style="margin-top: 1%;position: relative;left: 40%;float: left;">
             <div style="font-size: 1vw">Mailbox</div>
             <div><img ng-click="mailBox()" style="position: absolute;cursor: pointer;" ng-mouseleave="darker($event)" ng-mouseover="brighter($event)" src="images/mailboxIcon.png" width="115%"> </div>
