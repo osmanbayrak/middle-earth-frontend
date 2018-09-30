@@ -19,11 +19,12 @@ angular.module('myApp.buildingModal', ['ngRoute', 'ui.bootstrap'])
 
     $scope.prodInfo = function () {
         if ($scope.building.type === "timber"){
-            return {perHour: $scope.town.production.perHour.wood, type: "wood", capacity: $scope.town.production.capacity.wood};
+            return {perHour: $scope.town.production.perHour.wood, type: "wood", extraCapacity: $scope.town.production.extraCapacity.wood};
         } else if ($scope.building.type === "farm"){
-            return {perHour: $scope.town.production.perHour.food, type: "food", capacity: $scope.town.production.capacity.food};
+            return {perHour: $scope.town.production.perHour.food, type: "food", extraCapacity: $scope.town.production.extraCapacity.food};
         } else if ($scope.building.type === "stone"){
-            return {perHour: $scope.town.production.perHour.stone, type: "stone", capacity: $scope.town.production.capacity.stone};
+            console.log($scope.town.production.perHour.stone)
+            return {perHour: $scope.town.production.perHour.stone, type: "stone", extraCapacity: $scope.town.production.extraCapacity.stone};
         }
     };
 

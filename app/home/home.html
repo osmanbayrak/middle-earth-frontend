@@ -1,141 +1,46 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
-    <img class="col-md-12 col-sm-12 col-xs-12" src="images/basic.jpg">
-    <div id="militaryDiv">
-        <div id="north">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.north.lancers.length > 0" style="cursor: pointer; position: absolute;top: 8%; left: 45%;" width="6%" src="images/military/lancer/1.png">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.north.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 6%; left: 35%;" width="8%" src="images/military/cavalry/turnleft.png">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.north.archers.length > 0" style="cursor: pointer; position: absolute;top: 8%; left: 52%;" width="5%" src="images/military/archer/1.png">
+    <img class="col-md-12 col-sm-12 col-xs-12" src="images/bigbasic.png">
+    <div id="military{{k}}Div" ng-repeat="(k,v) in zones">
+        <div ng-if="k === 'east' || k === 'west'" id="{{k}}inner" ng-style="{'width': '8%', 'cursor': 'pointer', 'position': 'absolute', 'top': v.top+'%', 'left': v.left+'%'}">
+            <img ng-mouseover="brighter($event)" ng-mouseleave="darker($event)" ng-show="zones[k].lancers.length > 0" style="cursor: pointer;" width="85%" src="images/military/lancer/1.png">
+            <img ng-mouseover="brighter($event)" ng-mouseleave="darker($event)" ng-show="zones[k].cavalry.length > 0" style="cursor: pointer;" width="100%" src="images/military/cavalry/turnleft.png">
+            <img ng-mouseover="brighter($event)" ng-mouseleave="darker($event)" ng-show="zones[k].archers.length > 0" style="cursor: pointer;" width="85%" src="images/military/archer/1.png">
         </div>
-        <div id="south">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.south.lancers.length > 0" style="cursor: pointer; position: absolute;top: 85%; left: 45%;" width="6%" src="images/military/lancer/1.png">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.south.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 89%; left: 50%;" width="8%" src="images/military/cavalry/turnleft.png">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.south.archers.length > 0" style="cursor: pointer; position: absolute;top: 85%; left: 59%;" width="5%" src="images/military/archer/1.png">
-        </div>
-        <div id="east">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.east.lancers.length > 0" style="cursor: pointer; position: absolute;top: 40%; left: 85%;" width="6%" src="images/military/lancer/1.png">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.east.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 45%; left: 85%;" width="8%" src="images/military/cavalry/1.png">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.east.archers.length > 0" style="cursor: pointer; position: absolute;top: 35%; left: 85%;" width="5%" src="images/military/archer/1.png">
-        </div>
-        <div id="west">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.west.lancers.length > 0" style="cursor: pointer; position: absolute;top: 49%; left: 7%;" width="6%" src="images/military/lancer/1.png">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.west.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 41%; left: 5%;" width="8%" src="images/military/cavalry/turnleft.png">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.west.archers.length > 0" style="cursor: pointer; position: absolute;top: 35%; left: 7%;" width="5%" src="images/military/archer/1.png">
-        </div>
-        <div id="center">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.center.lancers.length > 0" style="cursor: pointer; position: absolute;top: 42%; left: 40%;" width="6%" src="images/military/lancer/1.png">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.center.cavalry.length > 0" style="cursor: pointer; position: absolute;top: 42%; left: 52%;" width="8%" src="images/military/cavalry/1.png">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="zones.center.archers.length > 0" style="cursor: pointer; position: absolute;top: 42%; left: 46%;" width="5%" src="images/military/archer/1.png">
+        <div ng-if="k === 'south' || k === 'north' || k === 'center'" id="{{k}}altInner" ng-style="{'cursor': 'pointer', 'position': 'absolute', 'top': v.top+'%', 'left': v.left+'%'}">
+            <img ng-mouseover="brighter($event)" ng-mouseleave="darker($event)" ng-show="zones[k].lancers.length > 0" style="cursor: pointer;" width="12%" src="images/military/lancer/1.png">
+            <img ng-mouseover="brighter($event)" ng-mouseleave="darker($event)" ng-show="zones[k].cavalry.length > 0" style="cursor: pointer;" width="15%" src="images/military/cavalry/turnleft.png">
+            <img ng-mouseover="brighter($event)" ng-mouseleave="darker($event)" ng-show="zones[k].archers.length > 0" style="cursor: pointer;" width="12%" src="images/military/archer/1.png">
         </div>
     </div>
-    <div id="buildingDiv">
-        <div id="mainDiv">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="main.level > 0" ng-click="page(true, main)"  style="cursor: pointer; position: absolute;top: 20%; left: 45%;" width="10%" ng-src="{{main.img}}">
-            <img ng-mouseover="onEmpty($event)" ng-mouseleave="outEmpty($event)" ng-show="main.level == 0" ng-click="page(true, main)"  style="cursor: pointer;opacity:0.5;position: absolute;top: 20%; left: 45%;" width="10%" src="images/ownTown/empty.png">
-            <div ng-if="main.status == 'loading'">
-                <img ng-click="page(true, main)" width="4%" style="cursor: pointer;position: absolute;top: 25%; left: 48%" src="images/ownTown/loading2.gif">
-            </div>
-            <div ng-click="page(true, main)" ng-show="main.status == 'loading'" style="cursor: pointer;position: absolute; top: 29%; left: 47%; background-color: whitesmoke;border: solid saddlebrown;border-radius: 7px" id="myProgressmain">
-                <div class="myBar" id="mainLoading"></div>
-            </div>
+    <div id="building{{k}}Div" ng-repeat="(k,v) in buildingPositions" ng-style="{'width': '7%', 'position': 'absolute', 'top': v.top+'%', 'left': v.left+'%'}">
+        <img ng-mouseover="brighter($event)" ng-mouseleave="darker($event)" ng-click="page(true, this[k])" ng-if="this[k].level > 0" style="cursor: pointer;" width="100%" ng-src="{{this[k].img}}">
+        <img ng-mouseover="onEmpty($event)" ng-mouseleave="outEmpty($event)" ng-show="this[k].level == 0" ng-click="page(true, this[k])"  style="cursor: pointer;opacity:0.5;" width="100%" src="images/ownTown/empty.png">
+        <div ng-show="this[k].status == 'loading'">
+            <img ng-click="page(true, this[k])" width="50%" style="cursor: pointer;" src="images/ownTown/loading2.gif">
         </div>
-        <div id="barracksDiv">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="barrack.level > 0" ng-click="page(true, barrack)"  style="cursor: pointer; position: absolute;top: 37%; left: 30%;" width="8%" ng-src="{{barrack.img}}">
-            <img ng-mouseover="onEmpty($event)" ng-mouseleave="outEmpty($event)" ng-show="barrack.level == 0" ng-click="page(true, barrack)"  style="cursor: pointer;opacity:0.5;position: absolute;top: 37%; left: 30%;" width="8%" src="images/ownTown/empty.png">
-            <div ng-if="barrack.status == 'loading'">
-                <img ng-click="page(true, barrack)" width="4%" style="cursor: pointer;position: absolute;top: 39%; left: 32%" src="images/ownTown/loading2.gif">
-            </div>
-            <div ng-if="preparings.lancers.length > 0">
-                <img ng-click="page(true, barrack)" width="4%" style="cursor: pointer;position: absolute;top: 39%; left: 32%" src="images/military/lancer/training.gif">
-            </div>
-            <div ng-click="page(true, barrack)" ng-show="barrack.status == 'loading'" style="cursor: pointer;position: absolute;
-                top: 43%; left: 30%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgressbarrack">
-                <div class="myBar" id="barrackLoading"></div>
-            </div>
-        </div>
-        <div id="stableDiv">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="stable.level > 0" ng-click="page(true, stable)"  style="cursor: pointer; position: absolute;top: 26%; left: 35%;" width="8%" ng-src="{{stable.img}}">
-            <img ng-mouseover="onEmpty($event)" ng-mouseleave="outEmpty($event)" ng-show="stable.level == 0" ng-click="page(true, stable)"  style="cursor: pointer; position: absolute;top: 26%; left: 35%;opacity: 0.5" width="8%" src="images/ownTown/empty.png">
-            <div ng-if="stable.status == 'loading'">
-                <img ng-click="page(true, stable)" width="4%" style="cursor: pointer;position: absolute;top: 27%; left: 38%" src="images/ownTown/loading2.gif">
-            </div>
-            <div ng-if="preparings.cavs.length > 0">
-                <img ng-click="page(true, stable)" width="4%" style="cursor: pointer;position: absolute;top: 27%; left: 38%" src="images/military/cavalry/training.gif">
-            </div>
-            <div ng-click="page(true, stable)" ng-show="stable.status == 'loading'" style="cursor: pointer;position: absolute; top: 31%; left: 37%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgresstables">
-                <div class="myBar" id="stableLoading"></div>
-            </div>
-        </div>
-        <div id="timberDiv">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="timber.level > 0" ng-click="page(true, timber)"  style="cursor: pointer; position: absolute;top: 58%; left: 68%;" width="8%" ng-src="{{timber.img}}">
-            <img ng-mouseover="onEmpty($event)" ng-mouseleave="outEmpty($event)" ng-show="timber.level == 0" ng-click="page(true, timber)"  style="cursor: pointer; position: absolute;top: 58%; left: 68%;opacity: 0.5" width="8%" src="images/ownTown/empty.png">
-            <div ng-if="timber.status == 'loading'">
-                <img ng-click="page(true, timber)" width="4%" style="cursor: pointer;position: absolute;top: 60%; left: 71%" src="images/ownTown/loading2.gif">
-            </div>
-            <div ng-click="page(true, timber)" ng-show="timber.status == 'loading'" style="cursor: pointer;position: absolute; top: 62%; left: 70%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgresstimber">
-                <div class="myBar" id="timberLoading"></div>
-            </div>
-        </div>
-        <div id="stoneDiv">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="stone.level > 0" ng-click="page(true, stone)"  style="cursor: pointer; position: absolute;top: 26%; left: 60%;" width="8%" ng-src="{{stone.img}}">
-            <img ng-mouseover="onEmpty($event)" ng-mouseleave="outEmpty($event)" ng-show="stone.level == 0" ng-click="page(true, stone)"  style="cursor: pointer; position: absolute;top: 26%; left: 60%;opacity: 0.5" width="8%" src="images/ownTown/empty.png">
-            <div ng-if="stone.status == 'loading'">
-                <img ng-click="page(true, stone)" width="4%" style="cursor: pointer;position: absolute;top: 28%; left: 61%" src="images/ownTown/loading2.gif">
-            </div>
-            <div ng-click="page(true, stone)" ng-show="stone.status == 'loading'" style="cursor: pointer;position: absolute; top: 30%; left: 61%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgressstone">
-                <div class="myBar" id="stoneLoading"></div>
-            </div>
-        </div>
-        <div id="houseDiv">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="house.level > 0" ng-click="page(true, house)"  style="cursor: pointer; position: absolute;top: 53%; left: 50%;" width="8%" ng-src="{{house.img}}">
-            <img ng-mouseover="onEmpty($event)" ng-mouseleave="outEmpty($event)" ng-show="house.level == 0" ng-click="page(true, house)"  style="cursor: pointer; position: absolute;top: 53%; left: 50%;opacity: 0.5" width="8%" src="images/ownTown/empty.png">
-            <div ng-if="house.status == 'loading'">
-                <img ng-click="page(true, house)" width="4%" style="cursor: pointer;position: absolute;top: 55%; left: 51%" src="images/ownTown/loading2.gif">
-            </div>
-            <div ng-click="page(true, house)" ng-show="house.status == 'loading'" style="cursor: pointer;position: absolute; top: 57%; left: 52%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgresshouse">
-                <div class="myBar" id="houseLoading"></div>
-            </div>
-        </div>
-        <div id="depotDiv">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="depot.level > 0" ng-click="page(true, depot)"  style="cursor: pointer; position: absolute;top: 53%; left: 35%;" width="8%" ng-src="{{depot.img}}">
-            <img ng-mouseover="onEmpty($event)" ng-mouseleave="outEmpty($event)" ng-show="depot.level == 0" ng-click="page(true, depot)"  style="cursor: pointer; position: absolute;top: 53%; left: 35%;opacity: 0.5" width="8%" src="images/ownTown/empty.png">
-            <div ng-if="depot.status == 'loading'">
-                <img ng-click="page(true, depot)" width="4%" style="cursor: pointer;position: absolute;top: 55%; left: 37%" src="images/ownTown/loading2.gif">
-            </div>
-            <div ng-click="page(true, depot)" ng-show="depot.status == 'loading'" style="cursor: pointer;position: absolute; top: 57%; left: 37%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgressdepot">
-                <div class="myBar" id="depotLoading"></div>
-            </div>
-        </div>
-        <div id="farmDiv">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="farm.level > 0" ng-click="page(true, farm)"  style="cursor: pointer; position: absolute;top: 33%; left: 65%;" width="8%" ng-src="{{farm.img}}">
-            <img ng-mouseover="onEmpty($event)" ng-mouseleave="outEmpty($event)" ng-show="farm.level == 0" ng-click="page(true, farm)"  style="cursor: pointer; position: absolute;top: 33%; left: 65%;opacity: 0.5" width="8%" src="images/ownTown/empty.png">
-            <div ng-if="farm.status == 'loading'">
-                <img ng-click="page(true, farm)" width="4%" style="cursor: pointer;position: absolute;top: 35%; left: 67%" src="images/ownTown/loading2.gif">
-            </div>
-            <div ng-click="page(true, farm)" ng-show="farm.status == 'loading'" style="cursor: pointer;position: absolute; top: 37%; left: 67%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgressfarm">
-                <div class="myBar" id="farmLoading"></div>
-            </div>
-        </div>
-        <div id="archeryDiv">
-            <img ng-mouseover="onBuilding($event)" ng-mouseleave="outBuilding($event)" ng-show="archery.level > 0" ng-click="page(true, archery)"  style="cursor: pointer; position: absolute;top: 42%; left: 70%;" width="8%" ng-src="{{archery.img}}">
-            <img ng-mouseover="onEmpty($event)" ng-mouseleave="outEmpty($event)" ng-show="archery.level == 0" ng-click="page(true, archery)"  style="cursor: pointer; position: absolute;top: 42%; left: 70%;opacity: 0.5" width="8%" src="images/ownTown/empty.png">
-            <div ng-if="archery.status == 'loading'">
-                <img ng-click="page(true, archery)" width="4%" style="cursor: pointer;position: absolute;top: 43%; left: 72%" src="images/ownTown/loading2.gif">
-            </div>
-            <div ng-if="preparings.archers.length > 0">
-                <img ng-click="page(true, archery)" width="4%" style="cursor: pointer;position: absolute;top: 43%; left: 72%" src="images/military/archer/training.gif">
-            </div>
-            <div ng-click="page(true, archery)" ng-show="archery.status == 'loading'" style="cursor: pointer;position: absolute; top: 45%; left: 73%; background-color: whitesmoke; border: solid saddlebrown; border-radius: 7px;" id="myProgressarchery">
-                <div class="myBar" id="archeryLoading"></div>
-            </div>
+        <div ng-click="page(true, this[k])" ng-show="this[k].status == 'loading'" style="cursor: pointer;background-color: whitesmoke;border: solid saddlebrown;border-radius: 3px" id="myProgressmain">
+            <div class="myBar" id="{{this[k].type}}Loading"></div>
         </div>
     </div>
-    <div style="width: 100%;height: 8%;position: absolute;top: 0; left:0;background-image: url(images/framedWood.png);background-size: 20%100%;background-repeat: repeat-x">
-       <div style="margin-top: 1%;position: relative;left: 43%;float: left;font-size: 2.3vw">Middle Earth</div>
+    <div id="topMenu" style="width: 100%;height: 10%;position: absolute;top: 0; left:0;background-image: url(images/framedWood.png);background-size: 20%100%;background-repeat: repeat-x">
+        <div style="margin-top: 1%;position: relative;left: 32%;float: left;">
+            <div style="font-size: 1vw">Town Center</div>
+            <div><img ng-click="home()" style="position:absolute;cursor: pointer;" ng-mouseleave="darker($event)" ng-mouseover="brighter($event)" src="images/edoras.png" width="72%"> </div>
+        </div>
+        <div style="margin-top: 1%;position: relative;left: 17%;float: left;">
+            <div style="font-size: 1vw">World Map</div>
+            <div><img ng-click="map()" style="position: absolute;cursor: pointer;" ng-mouseleave="darker($event)" ng-mouseover="brighter($event)" src="images/mapIcon.png" width="83%"> </div>
+        </div>
+        <div style="margin-top: 2%;position: relative;float: left;left: 31%;font-size: 2.3vw">{{currentTown.name}}</div>
+        <div style="margin-top: 1%;position: relative;left: 40%;float: left;">
+            <div style="font-size: 1vw">Mailbox</div>
+            <div><img ng-click="mailBox()" style="position: absolute;cursor: pointer;" ng-mouseleave="darker($event)" ng-mouseover="brighter($event)" src="images/mailboxIcon.png" width="115%"> </div>
+        </div>
         <div ng-click="logout()" style="cursor: pointer;margin-top: 2%;position: relative;margin-right: 5px" class="pull-right"><kbd><i class="fa fa-sign-out"></i>Logout</kbd></div>
         <div ng-click="settings()" style="cursor: pointer;margin-top: 2%;position: relative;margin-right: 5px" class="pull-right"><kbd><i class="fa fa-gear"></i>Settings</kbd></div>
         <div ng-click="profile()" style="cursor: pointer;margin-top: 2%;position: relative;margin-right: 5px" class="pull-right"><kbd><i class="fa fa-user"></i>Profile</kbd></div>
     </div>
-    <div id="military_queue_info" class="col-md-2 col-sm-2 col-xs-2" style="position: absolute;top:5%">
+    <div id="military_queue_info" class="col-md-2 col-sm-2 col-xs-2" style="position: absolute;top:7%">
         <img style="position: absolute;" width="100%100%" src="images/ownTown/WoodChain.png">
         <table class="col-md-12 col-xs-12 col-sm-12 text-center" style="margin-top: 50%;">
             <tr>
@@ -171,7 +76,7 @@
             </tr>
         </table>
     </div>
-    <div id="production_info" class="col-md-2 col-sm-2 col-xs-2" style="position: absolute;top:5%;left: 82%;">
+    <div id="production_info" class="col-md-2 col-sm-2 col-xs-2" style="position: absolute;top:7%;left: 82%;">
         <img style="position: absolute;" width="100%100%" src="images/ownTown/WoodChain.png">
         <table class="col-md-12 col-xs-12 col-sm-12 text-center" style="margin-top: 45%;">
             <tbody>

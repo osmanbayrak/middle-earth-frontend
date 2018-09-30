@@ -12,6 +12,11 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
 .controller('homeCtrl', ['$scope','$rootScope','$http', '$uibModal', '$location', function($scope, $rootScope, $http, $uibModal, $location) {
     $http.defaults.headers.common.Authorization = 'Token '+ localStorage.getItem('key');
     $scope.interval = {};
+    $scope.buildingPositions = {
+        main: {top: 25, left:50}, timber: {top: 55, left:35}, stone: {top: 30, left:40}, depot: {top: 35, left:35},
+        barrack: {top: 55, left:60}, archery: {top: 30, left:62}, stable: {top: 45, left:67}, farm: {top: 45, left:30},
+        house: {top: 55, left:45}
+    };
 
     $scope.convertSeconds = function (seconds) {
         var date = new Date(null);
@@ -30,11 +35,11 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                 $scope.allTowns = [];
                 angular.forEach($scope.profile.town, function (v) {
                     $scope.allTowns.push(v);});
-                $scope.zones = {north: {lancers:[], cavalry:[], archers: []},
-                                south: {lancers:[], cavalry:[], archers: []},
-                                west: {lancers:[], cavalry:[], archers: []},
-                                east: {lancers:[], cavalry:[], archers: []},
-                                center: {lancers:[], cavalry:[], archers: []}};
+                $scope.zones = {north: {lancers:[], cavalry:[], archers: [], left:40, top:13},
+                                south: {lancers:[], cavalry:[], archers: [], left:40, top:80},
+                                west: {lancers:[], cavalry:[], archers: [], left:15, top:40},
+                                center: {lancers:[], cavalry:[], archers: [], left:40, top:42},
+                                east: {lancers:[], cavalry:[], archers: [], left:80, top:40}};
                 $scope.lancers = [];
                 $scope.preparings = {lancers:[], cavs:[], archers:[]};
                 $scope.cavs = [];
@@ -80,9 +85,14 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
     $scope.buildingLoading = function (building) {
         if (!(building.type in $scope.interval)) {
             var a = document.getElementById(building.type +'Loading');
-            var sofar = parseInt((new Date().getTime() - new Date(building.change_date).getTime())/1000);
-            $scope.interval[building.type] = setInterval(frame, 1000);
-        }
+            if (a === null) {
+                setTimeout(function () {
+                $scope.buildingLoading(building);}, 200);
+            } else {
+                var sofar = parseInt((new Date().getTime() - new Date(building.change_date).getTime()) / 1000);
+                $scope.interval[building.type] = setInterval(frame, 1000);
+            }
+        } else {console.log("building loadinge giren building zaten intervalda kayıtlı");}
         function frame() {
             if (sofar >= building.construction_time + 3) {
                 clearInterval($scope.interval[building.type]);
@@ -165,20 +175,6 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
     };
 
     $scope.page();
-
-    $scope.onEmpty = function (e) {
-        e.target.style.opacity = '1';
-    };
-    $scope.outEmpty = function (e) {
-        e.target.style.opacity = '0.5';
-    };
-
-    $scope.onBuilding = function (e) {
-        e.target.style.filter = 'brightness(150%)';
-    };
-    $scope.outBuilding = function (e) {
-        e.target.style.filter = 'brightness(100%)';
-    };
 
     $scope.buildingModal = function (building) {
         $uibModal.open({
