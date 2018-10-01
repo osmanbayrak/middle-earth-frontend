@@ -9,6 +9,7 @@ angular.module('myApp', [
   'myApp.register',
   'myApp.login',
   'myApp.buildingModal',
+  'myApp.troopsModal',
   'myApp.map',
   'myApp.town'
 ]).

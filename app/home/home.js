@@ -13,7 +13,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
     $http.defaults.headers.common.Authorization = 'Token '+ localStorage.getItem('key');
     $scope.interval = {};
     $scope.buildingPositions = {
-        main: {top: 25, left:50}, timber: {top: 55, left:35}, stone: {top: 30, left:40}, depot: {top: 35, left:35},
+        main: {top: 30, left:50}, timber: {top: 55, left:35}, stone: {top: 30, left:40}, depot: {top: 35, left:35},
         barrack: {top: 55, left:60}, archery: {top: 30, left:62}, stable: {top: 45, left:67}, farm: {top: 45, left:30},
         house: {top: 55, left:45}
     };
@@ -27,7 +27,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
         return Math.floor(data);
     };
 
-    $scope.page = function (willModalOpen, building) {
+    $scope.page = function (willTroopsModalOpen, troops, willModalOpen, building) {
         $http.get("http://127.0.0.1:8000/profiles/?user__username=" + JSON.parse(localStorage.getItem('profile')).user.username)
             .success(function (profile) {
                 $scope.profile = profile[0];
@@ -35,11 +35,11 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                 $scope.allTowns = [];
                 angular.forEach($scope.profile.town, function (v) {
                     $scope.allTowns.push(v);});
-                $scope.zones = {north: {lancers:[], cavalry:[], archers: [], left:40, top:13},
-                                south: {lancers:[], cavalry:[], archers: [], left:40, top:80},
-                                west: {lancers:[], cavalry:[], archers: [], left:15, top:40},
-                                center: {lancers:[], cavalry:[], archers: [], left:40, top:42},
-                                east: {lancers:[], cavalry:[], archers: [], left:80, top:40}};
+                $scope.zones = {north: {lancers:[], cavalry:[], archers: [], left:45, top:13},
+                                south: {lancers:[], cavalry:[], archers: [], left:45, top:80},
+                                west: {lancers:[], cavalry:[], archers: [], left:7, top:45},
+                                center: {lancers:[], cavalry:[], archers: [], left:47, top:45},
+                                east: {lancers:[], cavalry:[], archers: [], left:80, top:45}};
                 $scope.lancers = [];
                 $scope.preparings = {lancers:[], cavs:[], archers:[]};
                 $scope.cavs = [];
@@ -74,6 +74,9 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                 $scope.currentTown.resources = JSON.parse($scope.currentTown.resources.replace(/u/g,'').replace(/\'/g,'\"'));
                 if (willModalOpen === true) {
                     $scope.buildingModal(building);
+                }
+                if (willTroopsModalOpen === true) {
+                    $scope.troopsModal(troops);
                 }
                 if (("modalReOpen" in $rootScope)? $rootScope.modalReOpen.status: false) {
                     $scope.buildingModal($rootScope.modalReOpen.building);
@@ -187,6 +190,22 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                     return {
                         building: building,
                         town: $scope.currentTown
+                    };
+                }
+            }
+        });
+    };
+
+    $scope.troopsModal = function (troops) {
+        $uibModal.open({
+            templateUrl: 'modals/troop/troop.html',
+            controller: 'troopsModalCtrl',
+            controllerUrl: 'modals/troop/troop.js',
+            size: 'lg',
+            resolve: {
+                modalConfig: function() {
+                    return {
+                        troops: troops
                     };
                 }
             }

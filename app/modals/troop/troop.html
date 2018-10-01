@@ -1,0 +1,29 @@
+<div class="modal-content" style="background: url(images/scrollpaper.png);background-size: cover;height: 470px;width: 600px">
+    <div class="custom-modal-body">
+        <div class="text-center" style="font-style: oblique;padding-top: 10%">
+            <h3 style="font-weight: 900">{{type}} troops in {{zone}}</h3>
+            <h5>Count {{troops.length}} <img width="6%" ng-src="images/military/{{type}}/profile.png"></h5>
+            <table style="margin-left: auto;margin-right: auto">
+                <thead>
+                    <tr>
+                        <th style="width: 27%!important;" class="text-center">tier</th>
+                        <th style="width: 27%!important;" class="text-center">power</th>
+                        <th style="width: 27%!important;" class="text-center">status</th>
+                        <th style="width: 19%!important;" class="text-center">actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="troop in troops">
+                        <td>{{troop.tier}}</td>
+                        <td>{{troop.power}}</td>
+                        <td>{{troop.status}}</td>
+                        <td class="btn-group-xs">
+                            <button class="btn btn-xs btn-default">Tier up</button>
+                            <button class="btn btn-xs btn-default">Kill</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
