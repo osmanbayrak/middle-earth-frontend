@@ -11,7 +11,8 @@ angular.module('myApp', [
   'myApp.buildingModal',
   'myApp.troopsModal',
   'myApp.map',
-  'myApp.town'
+  'myApp.town',
+  'ui.select'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');

@@ -3,7 +3,7 @@
 angular.module('myApp.buildingModal', ['ngRoute', 'ui.bootstrap'])
 
 .controller('buildingModalCtrl', ['$scope','$rootScope', '$http', '$location','$uibModal', '$uibModalInstance', 'modalConfig', function($scope, $rootScope, $http, $location, $uibModal, $uibModalInstance, modalConfig) {
-    $scope.interval = {};
+    $rootScope.troopInterval = {};
     $scope.convertSeconds = function (seconds) {
         var date = new Date(null);
         date.setSeconds(seconds);
@@ -11,7 +11,7 @@ angular.module('myApp.buildingModal', ['ngRoute', 'ui.bootstrap'])
     };
 
     $scope.building = modalConfig.building;
-    $rootScope.modalReOpen = {status:false, building: $scope.building};
+    $rootScope.buildingModalReOpen = {status:false, building: $scope.building};
     $scope.town = modalConfig.town;
     $scope.resources = $scope.town.resources;
     $scope.troops = $scope.town.troops;
@@ -23,24 +23,23 @@ angular.module('myApp.buildingModal', ['ngRoute', 'ui.bootstrap'])
         } else if ($scope.building.type === "farm"){
             return {perHour: $scope.town.production.perHour.food, type: "food", extraCapacity: $scope.town.production.extraCapacity.food};
         } else if ($scope.building.type === "stone"){
-            console.log($scope.town.production.perHour.stone)
             return {perHour: $scope.town.production.perHour.stone, type: "stone", extraCapacity: $scope.town.production.extraCapacity.stone};
         }
     };
 
     $scope.troopPreparing = function (troop) {
-        if (!(troop.id in $scope.interval)) {
+        if (!(troop.id in $rootScope.troopInterval)) {
             var a = document.getElementById(troop.id +'Loading');
             var sofar = parseInt((new Date().getTime() - new Date(troop.change_date).getTime())/1000);
-            $scope.interval[troop.id] = setInterval(frame, 1000);
+            $rootScope.troopInterval[troop.id] = setInterval(frame, 1000);
         }
         function frame() {
             if (sofar >= troop.preparation_time + 4) {
-                clearInterval($scope.interval[troop.id]);
-                delete $scope.interval[troop.id];
+                clearInterval($rootScope.troopInterval[troop.id]);
+                delete $rootScope.troopInterval[troop.id];
                 a.style.width = '0%';
                 a.innerHTML = "Initilazing";
-                $rootScope.modalReOpen.status = true;
+                $rootScope.buildingModalReOpen.status = true;
                 $uibModalInstance.close();
             } else {
                 sofar++;
@@ -106,14 +105,25 @@ angular.module('myApp.buildingModal', ['ngRoute', 'ui.bootstrap'])
 
     $scope.train = function () {
         $rootScope.trainNew($scope.initial_troop, false, undefined); // trainProcess(buildingTypeForTrainType, isCancel, idOfTRoop)
-        $rootScope.modalReOpen.status = true;
+        $rootScope.buildingModalReOpen.status = true;
         $uibModalInstance.close();
     };
 
     $scope.cancel_train = function (troop_id) {
         $rootScope.trainNew($scope.initial_troop, true, troop_id); // trainProcess(troopType, isCancel, idOfTroop)
-        $rootScope.modalReOpen.status = true;
+        $rootScope.buildingModalReOpen.status = true;
         $uibModalInstance.close();
+    };
+
+    $scope.cancel_tierUp = function (troop) {
+        troop.status = "ready";
+        $http.put("http://127.0.0.1:8000/troops/" + troop.id + '/', troop)
+            .success(function (res) {
+                clearInterval($rootScope.troopInterval[troop.id]);
+                delete $rootScope.troopInterval[troop.id];
+                $rootScope.initPage();
+            })
+            .error(function (err, status, header, config) {window.alert("You cant becaos of"+err.data); $scope.page();});
     };
 
     $scope.checkEnough = function (resourcesType, cost) {

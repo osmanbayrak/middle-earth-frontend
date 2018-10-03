@@ -2,14 +2,14 @@
     <img class="col-md-12 col-sm-12 col-xs-12" src="images/bigbasic.png">
     <div id="military{{k}}Div" ng-repeat="(k,v) in zones">
         <div id="{{k}}inner" class="text-center" ng-style="{'width': '15%', 'cursor': 'pointer', 'position': 'absolute', 'top': v.top+'%', 'left': v.left+'%'}">
-            <span ng-if="v.archers.length > 0" style="font-size: 0.7vw;color: white;background-color: darkslategray;width: 5%;border-radius: 100px;font-family: 'Comic Sans MS';margin: 0;padding: 0" class="text-center">
-                {{v.archers.length+ '     '}}
+            <span ng-if="v.archer.length > 0" style="font-size: 0.7vw;color: white;background-color: darkslategray;width: 5%;border-radius: 100px;font-family: 'Comic Sans MS';margin: 0;padding: 0" class="text-center">
+                {{v.archer.length+ '     '}}
             </span>
-            <img ng-click="page(true, v.archers, undefined, undefined)" ng-mouseover="brighter($event)" ng-mouseleave="darker($event)" ng-show="v.archers.length > 0" style="cursor: pointer;" width="43%" src="images/military/archer/1.png">
-            <span ng-if="v.lancers.length > 0" style="font-size: 0.7vw;color: white;background-color: darkslategray;width: 5%;border-radius: 100px;font-family: 'Comic Sans MS';margin: 0;padding: 0" class="text-center">
-                {{v.lancers.length+ '     '}}
+            <img ng-click="page(true, v.archer, undefined, undefined)" ng-mouseover="brighter($event)" ng-mouseleave="darker($event)" ng-show="v.archer.length > 0" style="cursor: pointer;" width="43%" src="images/military/archer/1.png">
+            <span ng-if="v.lancer.length > 0" style="font-size: 0.7vw;color: white;background-color: darkslategray;width: 5%;border-radius: 100px;font-family: 'Comic Sans MS';margin: 0;padding: 0" class="text-center">
+                {{v.lancer.length+ '     '}}
             </span>
-            <img ng-click="page(true, v.lancers, undefined, undefined)" ng-mouseover="brighter($event)" ng-mouseleave="darker($event)" ng-show="v.lancers.length > 0" style="cursor: pointer;" width="45%" src="images/military/lancer/1.png">
+            <img ng-click="page(true, v.lancer, undefined, undefined)" ng-mouseover="brighter($event)" ng-mouseleave="darker($event)" ng-show="v.lancer.length > 0" style="cursor: pointer;" width="45%" src="images/military/lancer/1.png">
             <span ng-if="v.cavalry.length > 0" style="font-size: 0.7vw;color: white;background-color: darkslategray;border-radius: 100px;font-family: 'Comic Sans MS';margin: 0;padding: 0" class="text-center">
                 {{v.cavalry.length+ '     '}}
             </span>
@@ -22,10 +22,10 @@
         </div>
         <img ng-mouseover="brighter($event)" ng-mouseleave="darker($event)" ng-click="page(undefined, undefined, true, this[k])" ng-if="this[k].level > 0" style="cursor: pointer;" width="100%" ng-src="{{this[k].img}}">
         <img ng-mouseover="onEmpty($event)" ng-mouseleave="outEmpty($event)" ng-show="this[k].level == 0" ng-click="page(undefined, undefined, true, this[k])"  style="cursor: pointer;opacity:0.5;" width="100%" src="images/ownTown/empty.png">
-        <div ng-show="this[k].status == 'loading'">
-            <img ng-click="page(undefined, undefined, true, this[k])" width="50%" style="cursor: pointer;" src="images/ownTown/loading2.gif">
+        <div ng-click="page(undefined, undefined, true, this[k])" ng-show="this[k].status == 'loading'" style="cursor: pointer;margin-top: -75%; position: absolute">
+            <img width="40%" src="images/ownTown/loading2.gif">
         </div>
-        <div ng-click="page(undefined, undefined, true, this[k])" ng-show="this[k].status == 'loading'" style="cursor: pointer;background-color: whitesmoke;border: solid saddlebrown;border-radius: 3px" id="myProgressmain">
+        <div ng-click="page(undefined, undefined, true, this[k])" ng-show="this[k].status == 'loading'" style="cursor: pointer;background-color: whitesmoke;border: solid saddlebrown;width: 75%;font-size: 0.9vw;position: absolute;margin-top: -40%;" id="myProgressmain">
             <div class="myBar" id="{{this[k].type}}Loading"></div>
         </div>
     </div>

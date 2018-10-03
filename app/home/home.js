@@ -15,7 +15,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
     $scope.buildingPositions = {
         main: {top: 30, left:50}, timber: {top: 55, left:35}, stone: {top: 30, left:40}, depot: {top: 35, left:35},
         barrack: {top: 55, left:60}, archery: {top: 30, left:62}, stable: {top: 45, left:67}, farm: {top: 45, left:30},
-        house: {top: 55, left:45}
+        house: {top: 55, left:45}, wall: {top:20, left:20}, workshop: {top: 25, left: 48}, shelter: {top: 32, left: 28}
     };
 
     $scope.convertSeconds = function (seconds) {
@@ -35,11 +35,11 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                 $scope.allTowns = [];
                 angular.forEach($scope.profile.town, function (v) {
                     $scope.allTowns.push(v);});
-                $scope.zones = {north: {lancers:[], cavalry:[], archers: [], left:45, top:13},
-                                south: {lancers:[], cavalry:[], archers: [], left:45, top:80},
-                                west: {lancers:[], cavalry:[], archers: [], left:7, top:45},
-                                center: {lancers:[], cavalry:[], archers: [], left:47, top:45},
-                                east: {lancers:[], cavalry:[], archers: [], left:80, top:45}};
+                $scope.zones = {north: {lancer:[], cavalry:[], archer: [], left:45, top:13},
+                                south: {lancer:[], cavalry:[], archer: [], left:45, top:80},
+                                west: {lancer:[], cavalry:[], archer: [], left:7, top:45},
+                                center: {lancer:[], cavalry:[], archer: [], left:47, top:45},
+                                east: {lancer:[], cavalry:[], archer: [], left:80, top:45}};
                 $scope.lancers = [];
                 $scope.preparings = {lancers:[], cavs:[], archers:[]};
                 $scope.cavs = [];
@@ -50,7 +50,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                         if (v.status === 'preparing') {
                             $scope.preparings.lancers.push(v);
                         }
-                        $scope.zones[v.town_position].lancers.push(v);
+                        $scope.zones[v.town_position].lancer.push(v);
                     } else if (v.type === "cavalry") {
                         $scope.cavs.push(v);
                         if (v.status === 'preparing') {
@@ -62,7 +62,7 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                             $scope.preparings.archers.push(v);
                         }
                         $scope.archers.push(v);
-                        $scope.zones[v.town_position].archers.push(v);
+                        $scope.zones[v.town_position].archer.push(v);
                     }
                 });
                 angular.forEach($scope.currentTown.buildings, function (v) {
@@ -78,11 +78,15 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                 if (willTroopsModalOpen === true) {
                     $scope.troopsModal(troops);
                 }
-                if (("modalReOpen" in $rootScope)? $rootScope.modalReOpen.status: false) {
-                    $scope.buildingModal($rootScope.modalReOpen.building);
+                if (("buildingModalReOpen" in $rootScope)? $rootScope.buildingModalReOpen.status: false) {
+                    $scope.buildingModal($rootScope.buildingModalReOpen.building);
                 }
             })
             .error(function (err, status, header, config) {window.alert('Cant get your profile and town informations because of ' + err.substr(22, 30));});
+    };
+
+    $rootScope.initPage = function (willTroopsModalOpen, troops, willModalOpen, building) {
+        $scope.page(willTroopsModalOpen, troops, willModalOpen, building);
     };
 
     $scope.buildingLoading = function (building) {
@@ -135,6 +139,28 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
         }
     };
 
+    $rootScope.tierUp = function (troop, isCancel) {
+        if (isCancel === false) {
+            troop.status = "preparing";
+            troop.change_date = new Date();
+
+            $http.put("http://127.0.0.1:8000/troops/" + troop.id + '/', troop)
+                .success(function (res) {
+                    $scope.page();
+                })
+                .error(function (err, status, header, config) {window.alert(err.substr(15,45)); $scope.page();});
+        } else {
+            troop.status = "ready";
+            $http.put("http://127.0.0.1:8000/troops/" + troop.id + '/', troop)
+                .success(function (res) {
+                    clearInterval($rootScope.troopInterval[troop.id]);
+                    delete $rootScope.troopInterval[troop.id];
+                    $scope.page();
+                })
+                .error(function (err, status, header, config) {window.alert("You cant becaos of"+err.substr(20,45)); $scope.page();});
+        }
+    };
+
     $rootScope.trainNew = function (initial_troop, isCancel, troop_id) {
         if (isCancel === false) {
             if (initial_troop.type === 'archer') {
@@ -163,8 +189,8 @@ angular.module('myApp.home', ['ngRoute', 'ui.bootstrap'])
                     };
                     $http.patch("http://127.0.0.1:8000/towns/"+ $scope.currentTown.id +"/", cancelData)
                         .success(function (res) {
-                            //clearInterval(interval.id.oftroop);
-                            //delete $scope.interval[interval.id.oftroop];
+                            clearInterval($rootScope.troopInterval[troop_id]);
+                            delete $rootScope.troopInterval[troop_id];
                             $scope.page();
                         })
                         .error(function (err, status) {
